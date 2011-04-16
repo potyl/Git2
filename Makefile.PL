@@ -1,20 +1,10 @@
-use strict;
-use warnings;
-
+use 5.010001;
 use ExtUtils::MakeMaker;
 
-
-sub main {
-    mkdir 'build', 0777;
-
-    WriteMakefile(
-        NAME          => 'Git',
-        VERSION_FROM  => 'lib/Git.pm',
-        INC           => '-Ixs -I.',
-        LIBS          => ['-lgit2'],
-        DEFINE        => '',
-    );
-}
-
-
-exit main() unless caller;
+WriteMakefile(
+    NAME              => 'Git',
+    VERSION_FROM      => 'lib/Git.pm', # finds $VERSION
+    INC               => '-I.', # e.g., '-I. -I/usr/include/other'
+    LIBS              => [''], # e.g., '-lm'
+    DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
+);
