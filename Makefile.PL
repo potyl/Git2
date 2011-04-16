@@ -1,15 +1,17 @@
 use 5.010001;
 use ExtUtils::MakeMaker;
+use ExtUtils::Depends;
+
+my $pkg = ExtUtils::Depends->new("Git2", "XS::Object::Magic");
+$pkg->set_inc('-Ixs');
+$pkg->set_libs('-lgit2');
 
 WriteMakefile(
-    NAME              => 'Git',
-    VERSION_FROM      => 'lib/Git.pm', # finds $VERSION
-    INC               => '-I.', # e.g., '-I. -I/usr/include/other'
-    LIBS              => ['-lgit2'], # e.g., '-lm'
-    DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
+    NAME              => 'Git2',
+    VERSION_FROM      => 'lib/Git2.pm', # finds $VERSION
 
     mm_args(),
-
+    $pkg->get_makefile_vars(),
 );
 
 sub mm_args {
@@ -33,4 +35,27 @@ sub mm_args {
         OBJECT => join( q{ }, @object ),
         XS     => \%xs,
     );
+}
+
+
+{
+package MY;
+
+use Config;
+
+sub const_cccmd {
+    my $ret = shift->SUPER::const_cccmd(@_);
+    return q{} unless $ret;
+
+    if ($Config{cc} =~ /^cl\b/i) {
+        warn 'you are using MSVC... my condolences.';
+        $ret .= ' /Fo$@';
+    }
+    else {
+        $ret .= ' -o $@';
+    }
+
+    return $ret;
+}
+
 }

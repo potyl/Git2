@@ -1,8 +1,9 @@
-#include "EXTERN.h"
-#include "perl.h"
-#include "XSUB.h"
+#include "git2-perl.h"
 
-#include "ppport.h"
+EXTERN_C XS(boot_Git2__Repository);
 
-MODULE = Git PACKAGE = Git
+MODULE = Git2  PACKAGE = Git2
 
+
+BOOT:
+    GIT2PERL_CALL_BOOT (boot_Git2__Repository);

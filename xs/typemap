@@ -1,0 +1,2 @@
+TYPEMAP
+git_repository*  T_PTROBJ_MG
