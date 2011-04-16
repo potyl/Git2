@@ -1,6 +1,7 @@
 TYPEMAP
 git_repository* O_GIT_REPOSITORY
 
+
 INPUT
 O_GIT_REPOSITORY
     if( sv_isobject($arg) && (SvTYPE(SvRV($arg)) == SVt_PVMG) )
@@ -9,6 +10,7 @@ O_GIT_REPOSITORY
             warn( \"${Package}::$func_name() -- $var is not a blessed SV reference\" );
             XSRETURN_UNDEF;
     }
+
 
 OUTPUT
 O_GIT_REPOSITORY
