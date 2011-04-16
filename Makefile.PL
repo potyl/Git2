@@ -10,12 +10,9 @@ sub main {
     WriteMakefile(
         NAME          => 'Git',
         VERSION_FROM  => 'lib/Git.pm',
-        INC           => '-Ixs',
-        LIBS          => '-lgit2',
+        INC           => '-Ixs -I.',
+        LIBS          => ['-lgit2'],
         DEFINE        => '',
-        XS            => {
-            'xs/GitRepository.xs' => 'xs/GitRepository.c',
-        },
     );
 }
 
