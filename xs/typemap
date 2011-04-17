@@ -1,3 +1,13 @@
 TYPEMAP
 git_repository*  T_PTROBJ_MG
 git_odb*         T_PTROBJ_MG
+
+
+OUTPUT
+T_PTROBJ_MG
+        {
+            SV *self = (SV *)newHV();
+            $arg = newRV_noinc(self);
+            sv_bless($arg, gv_stashsv(class, 0));
+            xs_object_magic_attach_struct(aTHX_ self, $var);
+        }
