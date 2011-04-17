@@ -28,8 +28,3 @@ git_odb_new(SV *class)
 
 void
 git_odb_close(git_odb *odb)
-	PREINIT:
-        int code;
-
-	CODE:
-        git_odb_close(odb);
