@@ -27,13 +27,9 @@ git_odb_new(SV *class)
 
 
 void
-git_odb_object_close(git_odb *odb)
+git_odb_close(git_odb *odb)
 	PREINIT:
-//		git_odb *odb;
         int code;
 
-	INIT:
-//        odb = (git_odb *) xs_object_magic_get_struct_rv(aTHX_ self);
-
 	CODE:
-        git_odb_object_close(odb);
+        git_odb_close(odb);
