@@ -25,26 +25,14 @@ git_repository_open(SV *class, const char *path)
 		RETVAL
 
 
-SV*
-git_repository_init(SV *class, const char *path, unsigned is_bare)
-	PREINIT:
-		git_repository *repo = NULL;
-        int code;
-        SV *self = NULL;
+NO_OUTPUT int
+git_repository_init(SV *class, OUTLIST git_repository *repo, const char *path, unsigned is_bare)
+    C_ARGS: &repo, path, is_bare
 
-	CODE:
-        code = git_repository_init(&repo, path, is_bare);
-        if (code) {
-            git2perl_croak_error(code);
+	POSTCALL:
+        if (RETVAL) {
+            git2perl_croak_error(RETVAL);
         }
-        self = (SV *)newHV();
-        xs_object_magic_attach_struct(aTHX_ self, repo);
-
-        RETVAL = newRV_noinc(self);
-        sv_bless(RETVAL, gv_stashsv(class, 0));
-
-	OUTPUT:
-		RETVAL
 
 
 void
