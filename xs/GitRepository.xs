@@ -26,6 +26,27 @@ git_repository_open(SV *class, const char *path)
 		RETVAL
 
 
+SV*
+git_repository_init(SV *class, const char *path, unsigned is_bare)
+	PREINIT:
+		git_repository *repo = NULL;
+        int code;
+        SV *self = NULL;
+
+	CODE:
+        code = git_repository_init(&repo, path, is_bare);
+        if (code) {
+            croak("Error with code %d", code);
+            repo = NULL;
+        }
+        self = (SV *)newHV();
+        RETVAL = newRV_noinc(self);
+        sv_bless(RETVAL, gv_stashsv(class, 0));
+        xs_object_magic_attach_struct(aTHX_ self, repo);
+
+	OUTPUT:
+		RETVAL
+
 
 void
 DESTROY(git_repository *repo)
