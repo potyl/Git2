@@ -4,25 +4,14 @@
 MODULE = Git2::Repository  PACKAGE = Git2::Repository  PREFIX = git_repository_
 
 
-SV*
-git_repository_open(SV *class, const char *path)
-	PREINIT:
-		git_repository *repo = NULL;
-        int code;
-        SV *obj;
+NO_OUTPUT int
+git_repository_open(SV *class, OUTLIST git_repository *repo, const char *path)
+    C_ARGS: &repo, path
 
-	CODE:
-        code = git_repository_open(&repo, path);
-        if (code) {
-            git2perl_croak_error(code);
+	POSTCALL:
+        if (RETVAL) {
+            git2perl_croak_error(RETVAL);
         }
-        obj = (SV *)newHV();
-        RETVAL = newRV_noinc(obj);
-        sv_bless(RETVAL, gv_stashsv(class, 0));
-        xs_object_magic_attach_struct(aTHX_ obj, repo);
-
-	OUTPUT:
-		RETVAL
 
 
 NO_OUTPUT int
