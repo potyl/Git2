@@ -38,9 +38,10 @@ git_repository_init(SV *class, const char *path, unsigned is_bare)
             git2perl_croak_error(code);
         }
         self = (SV *)newHV();
+        xs_object_magic_attach_struct(aTHX_ self, repo);
+
         RETVAL = newRV_noinc(self);
         sv_bless(RETVAL, gv_stashsv(class, 0));
-        xs_object_magic_attach_struct(aTHX_ self, repo);
 
 	OUTPUT:
 		RETVAL
