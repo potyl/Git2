@@ -1,2 +1,3 @@
 TYPEMAP
 git_repository*  T_PTROBJ_MG
+git_odb*         T_PTROBJ_MG
