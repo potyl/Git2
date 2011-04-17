@@ -5,7 +5,7 @@ MODULE = Git2::Repository  PACKAGE = Git2::Repository  PREFIX = git_repository_
 
 
 NO_OUTPUT int
-git_repository_open(SV *class, OUTLIST git_repository *repo, const char *path)
+git_repository_open(SV *class, OUTLIST git_repository_class *repo, const char *path)
     C_ARGS: &repo, path
 
 	POSTCALL:
@@ -15,7 +15,7 @@ git_repository_open(SV *class, OUTLIST git_repository *repo, const char *path)
 
 
 NO_OUTPUT int
-git_repository_init(SV *class, OUTLIST git_repository *repo, const char *path, unsigned is_bare)
+git_repository_init(SV *class, OUTLIST git_repository_class *repo, const char *path, unsigned is_bare)
     C_ARGS: &repo, path, is_bare
 
 	POSTCALL:
