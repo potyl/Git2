@@ -1,5 +1,8 @@
 #include "git2-perl.h"
+
 #include <string.h>
+#include <errno.h>
+
 
 void
 git2perl_call_xs (pTHX_ XSPROTO(subaddr), CV *cv, SV **mark)
@@ -32,68 +35,96 @@ git2perl_message_error (signed char code) {
         break;
 
         case GIT_ENOTOID:
-            message = "object ID not well formed";
+            message = "Input was not a properly formatted Git object id.";
         break;
 
         case GIT_ENOTFOUND:
-            message = "not found";
+            message = "Input does not exist in the scope searched.";
         break;
 
         case GIT_ENOMEM:
-            message = "out of space";
+            message = "Not enough space available.";
         break;
 
         case GIT_EOSERR:
-            if (errno > sys_nerr-1) {
-	            message = "unknown OS error";
+            if (errno > sys_nerr - 1) {
+                message = "Consult the OS error information.";
             }
             else {
-	            message = strerror(errno);
+                message = strerror(errno);
             };
         break;
 
         case GIT_EOBJTYPE:
-            message = "invalid object type";
+            message = "The specified object is of invalid type.";
         break;
 
         case GIT_EOBJCORRUPTED:
-            message = "object data corrupted";
+            message = "The specified object has its data corrupted.";
         break;
 
         case GIT_ENOTAREPO:
-            message = "not a git repo";
+            message = "The specified repository is invalid.";
         break;
 
         case GIT_EINVALIDTYPE:
-            message = "object type mismatch";
+            message = "The object type is invalid or doesn't match.";
         break;
 
         case GIT_EMISSINGOBJDATA:
-            message = "object required field missing";
+            message = "The object cannot be written because it's missing internal data.";
         break;
 
         case GIT_EPACKCORRUPTED:
-            message = "packfile corrupt";
+            message = "The packfile for the ODB is corrupted.";
         break;
 
         case GIT_EFLOCKFAIL:
-            message = "failed to acquire lock";
+            message = "Failed to acquire or release a file lock.";
         break;
 
         case GIT_EZLIB:
-            message = "zlib failure";
+            message = "The Z library failed to inflate/deflate an object's data.";
         break;
 
         case GIT_EBUSY:
-            message = "object busy";
+            message = "The queried object is currently busy.";
         break;
 
         case GIT_EBAREINDEX:
             message = "The index file is not backed up by an existing repository.";
         break;
 
-        default:
-            message = "unknown error";
+        case GIT_EINVALIDREFNAME:
+            message = "The name of the reference is not valid.";
+        break;
+
+        case GIT_EREFCORRUPTED:
+            message = "The specified reference has its data corrupted.";
+        break;
+
+        case GIT_ETOONESTEDSYMREF:
+            message = "The specified symbolic reference is too deeply nested.";
+        break;
+
+        case GIT_EPACKEDREFSCORRUPTED:
+            message = "The pack-refs file is either corrupted or its format is not currently supported.";
+        break;
+
+        case GIT_EINVALIDPATH:
+            message = "The path is invalid.";
+        break;
+
+        case GIT_EREVWALKOVER:
+            message = "The revision walker is empty; there are no more commits left to iterate.";
+        break;
+
+        case GIT_EINVALIDREFSTATE:
+            message = "The state of the reference is not valid.";
+        break;
+
+        case GIT_ENOTIMPLEMENTED:
+            message = "This feature has not been implemented yet.";
         break;
     }
     return message;
