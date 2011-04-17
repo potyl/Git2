@@ -11,3 +11,11 @@
 
 void
 git2perl_call_xs (pTHX_ XSPROTO(subaddr), CV *cv, SV **mark);
+
+void
+git2perl_croak_error (signed char code);
+
+const char*
+git2perl_message_error (signed char code);
+
+
