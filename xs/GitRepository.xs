@@ -14,8 +14,7 @@ git_repository_open(SV *class, const char *path)
 	CODE:
         code = git_repository_open(&repo, path);
         if (code) {
-            croak("Error with code %d", code);
-            repo = NULL;
+            git2perl_croak_error(code);
         }
         obj = (SV *)newHV();
         RETVAL = newRV_noinc(obj);
@@ -36,8 +35,7 @@ git_repository_init(SV *class, const char *path, unsigned is_bare)
 	CODE:
         code = git_repository_init(&repo, path, is_bare);
         if (code) {
-            croak("Error with code %d", code);
-            repo = NULL;
+            git2perl_croak_error(code);
         }
         self = (SV *)newHV();
         RETVAL = newRV_noinc(self);
