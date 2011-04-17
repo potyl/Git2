@@ -4,6 +4,7 @@
 
 #include "ppport.h"
 
+#include <xs_object_magic.h>
 
 #include <git2.h>
 
