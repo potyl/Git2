@@ -3,7 +3,9 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More 'no_plan';
+#use Test::More tests => 2;
+use File::Temp 'tempdir';
 
 BEGIN {
     use_ok('Git2');
@@ -25,7 +27,7 @@ sub test_open {
 
 
 sub test_init {
-    my $dir = 'tmp';
+    my $dir = tempdir( CLEANUP => 1 );
 
     my $repo = Git2::Repository->init($dir, 1);
     isa_ok($repo, 'Git2::Repository');
