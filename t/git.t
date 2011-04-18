@@ -16,6 +16,7 @@ sub main {
     test_open();
     test_init();
     test_database();
+    test_oid();
     return 0;
 }
 
@@ -43,6 +44,13 @@ sub test_database {
     
     my $database = $repo->database();
     isa_ok($database, 'Git2::Odb', 'getting database object from the repository');
+}
+
+
+sub test_oid {
+    my $sha1hex = "a" x 40;
+    my $oid = Git2::Oid->mkstr($sha1hex);
+    isa_ok($oid, 'Git2::Oid');
 }
 
 
