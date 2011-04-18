@@ -24,6 +24,10 @@ git_repository_init(SV *class, OUTLIST git_repository_class *repo, const char *p
         }
 
 
+git_odb*
+git_repository_database (git_repository *repo)
+
+
 void
 DESTROY(git_repository *repo)
     CODE:

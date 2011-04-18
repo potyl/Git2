@@ -35,6 +35,10 @@ sub test_init {
     
     my $repo2 = Git2::Repository->open($dir);
     isa_ok($repo2, 'Git2::Repository', 'construct repository object with open() on the same folder');
+
+
+    my $database = $repo2->database();
+    isa_ok($database, 'Git2::Odb');
 }
 
 sub test_database {
