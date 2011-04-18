@@ -12,6 +12,9 @@ WriteMakefile(
 
     mm_args(),
     $pkg->get_makefile_vars(),
+
+    # Compile with debug symbols
+    OPTIMIZE => '-g -O0',
 );
 
 sub mm_args {
