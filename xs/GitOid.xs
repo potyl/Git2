@@ -17,6 +17,23 @@ git_oid_mkstr(SV *class, const char *hex)
         GIT2PERL_BLESS(oid);
 
 
+SV*
+git_oid_mkraw(SV *class, SV *raw_sv);
+    PREINIT:
+        git_oid *oid;
+        const unsigned char *raw;
+
+    CODE:
+        raw = (const unsigned char *) SvPV_nolen(raw_sv);
+        Newxz(oid, 1, git_oid);
+        /* FIXME there's probably a memory leak or memory corruption here as
+           git_oid_mkraw() expects a const string. I suspect that the library
+           will simply point to the 'raw' pointer which will be freed by Perl.
+         */
+        git_oid_mkraw(oid, raw);
+        GIT2PERL_BLESS(oid);
+
+
 void
 DESTROY(git_oid *oid)
     CODE:

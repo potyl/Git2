@@ -50,6 +50,10 @@ sub test_database {
 sub test_oid {
     my $sha1hex = "a" x 40;
     my $oid = Git2::Oid->mkstr($sha1hex);
+
+    my $sha1raw = pack 'a20', 'a' x 20;
+    Git2::Oid->mkraw($sha1raw);
+    
     isa_ok($oid, 'Git2::Oid');
 }
 
