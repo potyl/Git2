@@ -1,9 +1,14 @@
 TYPEMAP
 git_repository_class*  T_PTROBJ_MG_CLASS
 git_odb_class*         T_PTROBJ_MG_CLASS
+git_repository*        T_PTROBJ_MG
+git_odb*               T_PTROBJ_MG_GIT_ODB
 
-git_repository*   T_PTROBJ_MG
-git_odb*          T_PTROBJ_MG
+
+INPUT
+T_PTROBJ_MG_GIT_ODB
+    $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
+
 
 OUTPUT
 T_PTROBJ_MG_CLASS
@@ -11,5 +16,13 @@ T_PTROBJ_MG_CLASS
             SV *self = (SV *)newHV();
             $arg = newRV_noinc(self);
             sv_bless($arg, gv_stashsv(class, 0));
+            xs_object_magic_attach_struct(aTHX_ self, $var);
+        }
+
+T_PTROBJ_MG_GIT_ODB
+        {
+            SV *self = (SV *)newHV();
+            $arg = newRV_noinc(self);
+            sv_bless($arg, gv_stashpv("Git2::Odb", 0));
             xs_object_magic_attach_struct(aTHX_ self, $var);
         }
