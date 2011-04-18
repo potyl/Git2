@@ -22,3 +22,16 @@ git2perl_message_error (signed char code);
 #define git_repository_class git_repository
 #define git_odb_class        git_odb
 #define git_oid_class        git_oid
+
+
+#define GIT2PERL_BLESS(obj)                         \
+do {                                                \
+    SV *self;                                       \
+                                                    \
+    self = (SV *)newHV();                           \
+    RETVAL = newRV_noinc(self);                     \
+    sv_bless(RETVAL, gv_stashsv(class, 0));         \
+    xs_object_magic_attach_struct(aTHX_ self, obj); \
+} while (0)
+
+#define GIT2PERL_CROAK(code) if (code) { git2perl_croak_error(code); }
