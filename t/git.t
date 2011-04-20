@@ -51,13 +51,13 @@ sub test_database {
 sub test_oid {
     my $sha1hex = "a" x 40;
     my $oid = Git2::Oid->mkstr($sha1hex);
+    isa_ok($oid, 'Git2::Oid', 'oid constructed from a hex string');
+	is($oid->fmt, $sha1hex, 'oid built from hex string matches');
 
-    my $sha1raw = pack 'a20', 'a' x 20;
+    my $sha1raw = pack 'L4', (0) x 5;
     my $oid2 = Git2::Oid->mkraw($sha1raw);
-
-	print Dumper($oid2);
-	my $sha1hex2 = $oid2->fmt();
-	print "hex: $sha1hex2\n";
+    isa_ok($oid2, 'Git2::Oid', 'oid constructed from a bin string');
+	is($oid2->fmt, '0' x 40, 'oid built from bin string matches');
 
     isa_ok($oid, 'Git2::Oid');
 }
