@@ -73,6 +73,30 @@ git_oid_cmp(git_oid *a, git_oid *b)
 	OUTPUT:
 		RETVAL
 
+SV*
+git_oid_cpy(git_oid *src)
+	PREINIT:
+		git_oid *oid;
+		SV *self;
+		char *classname;
+
+	CODE:
+		Newxz(oid, 1, git_oid);
+		git_oid_cpy(oid, src);
+
+		self = (SV *)newHV();
+		RETVAL = newRV_noinc(self);
+
+		classname = sv_reftype(SvRV(ST(0)), 1);
+		printf("Class is %s\n", classname);
+		sv_bless(RETVAL, gv_stashsv(classname, 0));
+
+		xs_object_magic_attach_struct(aTHX_ self, oid);
+
+	OUTPUT:
+		RETVAL
+
+
 
 void
 DESTROY(git_oid *oid)

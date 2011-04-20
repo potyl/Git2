@@ -67,7 +67,10 @@ sub test_oid {
 	ok($oid->cmp($oid) == 0);
 	ok($oid2->cmp($oid2) == 0);
 
-    isa_ok($oid, 'Git2::Oid');
+	my $oid_copy = $oid->cpy;
+	isa_ok($oid_copy, 'Git2::Oid');
+	is($oid_copy->fmt, $sha1hex, 'fmtt from hex string matches');
+	is($oid_copy->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 }
 
 
