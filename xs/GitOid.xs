@@ -65,6 +65,14 @@ git_oid_pathfmt(git_oid *oid)
 	OUTPUT:
 		RETVAL
 
+int
+git_oid_cmp(git_oid *a, git_oid *b)
+	CODE:
+		RETVAL = git_oid_cmp(a, b);
+
+	OUTPUT:
+		RETVAL
+
 
 void
 DESTROY(git_oid *oid)

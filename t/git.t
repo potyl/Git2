@@ -62,6 +62,11 @@ sub test_oid {
 	is($oid2->fmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'fmt from bin string matches');
 	is($oid2->pathfmt, '2a/98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'pathfmt from hex string matches');
 
+	ok($oid->cmp($oid2) > 0);
+	ok($oid2->cmp($oid) < 0);
+	ok($oid->cmp($oid) == 0);
+	ok($oid2->cmp($oid2) == 0);
+
     isa_ok($oid, 'Git2::Oid');
 }
 
