@@ -3,8 +3,8 @@ use ExtUtils::MakeMaker;
 use ExtUtils::Depends;
 
 my $pkg = ExtUtils::Depends->new("Git2", "XS::Object::Magic");
-$pkg->set_inc('-Ixs');
-$pkg->set_libs('-lgit2');
+$pkg->set_inc('-Ixs -I/opt/local/include -I/usr/local/include');
+$pkg->set_libs('-lgit2 -L/opt/local/lib -L/usr/local/lib');
 
 WriteMakefile(
     NAME              => 'Git2',
