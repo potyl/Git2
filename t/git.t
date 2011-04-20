@@ -52,8 +52,12 @@ sub test_oid {
     my $oid = Git2::Oid->mkstr($sha1hex);
 
     my $sha1raw = pack 'a20', 'a' x 20;
-    Git2::Oid->mkraw($sha1raw);
-    
+    my $oid2 = Git2::Oid->mkraw($sha1raw);
+
+	print Dumper($oid2);
+	my $sha1hex2 = $oid2->fmt();
+	print "hex: $sha1hex2\n";
+
     isa_ok($oid, 'Git2::Oid');
 }
 

@@ -41,6 +41,17 @@ git_oid_mkraw(SV *class, SV *raw_sv);
 
 
 SV*
+git_oid_fmt(git_oid *oid)
+	PREINIT:
+		char str[GIT_OID_HEXSZ];
+
+	CODE:
+		git_oid_fmt(str, oid);
+		RETVAL = newSVpv(str, GIT_OID_HEXSZ);
+
+	OUTPUT:
+		RETVAL
+
 
 void
 DESTROY(git_oid *oid)
