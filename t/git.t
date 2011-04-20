@@ -7,6 +7,7 @@ use Test::More 'no_plan';
 #use Test::More tests => 2;
 use File::Temp 'tempdir';
 use Data::Dumper;
+use Digest::SHA1  qw(sha1 sha1_hex);
 
 BEGIN {
     use_ok('Git2');
@@ -49,15 +50,17 @@ sub test_database {
 
 
 sub test_oid {
-    my $sha1hex = "a" x 40;
+    my $sha1hex = sha1_hex('Amsterdam QA Hackathon');
     my $oid = Git2::Oid->mkstr($sha1hex);
     isa_ok($oid, 'Git2::Oid', 'oid constructed from a hex string');
-	is($oid->fmt, $sha1hex, 'oid built from hex string matches');
+	is($oid->fmt, $sha1hex, 'fmtt from hex string matches');
+	is($oid->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 
-    my $sha1raw = pack 'L4', (0) x 5;
+    my $sha1raw = sha1('I can haz bin string');
     my $oid2 = Git2::Oid->mkraw($sha1raw);
     isa_ok($oid2, 'Git2::Oid', 'oid constructed from a bin string');
-	is($oid2->fmt, '0' x 40, 'oid built from bin string matches');
+	is($oid2->fmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'fmt from bin string matches');
+	is($oid2->pathfmt, '2a/98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'pathfmt from hex string matches');
 
     isa_ok($oid, 'Git2::Oid');
 }

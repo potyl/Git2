@@ -53,6 +53,19 @@ git_oid_fmt(git_oid *oid)
 		RETVAL
 
 
+SV*
+git_oid_pathfmt(git_oid *oid)
+	PREINIT:
+		char str[GIT_OID_HEXSZ + 1];
+
+	CODE:
+		git_oid_pathfmt(str, oid);
+		RETVAL = newSVpv(str, GIT_OID_HEXSZ + 1);
+
+	OUTPUT:
+		RETVAL
+
+
 void
 DESTROY(git_oid *oid)
     CODE:
