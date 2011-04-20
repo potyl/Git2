@@ -16,6 +16,9 @@ git_oid_mkstr(SV *class, const char *hex)
         GIT2PERL_CROAK(code);
         GIT2PERL_BLESS(oid);
 
+	OUTPUT:
+		RETVAL
+
 
 SV*
 git_oid_mkraw(SV *class, SV *raw_sv);
@@ -33,6 +36,11 @@ git_oid_mkraw(SV *class, SV *raw_sv);
         git_oid_mkraw(oid, raw);
         GIT2PERL_BLESS(oid);
 
+	OUTPUT:
+		RETVAL
+
+
+SV*
 
 void
 DESTROY(git_oid *oid)
