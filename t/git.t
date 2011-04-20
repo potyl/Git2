@@ -6,6 +6,7 @@ use warnings;
 use Test::More 'no_plan';
 #use Test::More tests => 2;
 use File::Temp 'tempdir';
+use Data::Dumper;
 
 BEGIN {
     use_ok('Git2');
