@@ -68,6 +68,26 @@ git_oid_pathfmt(git_oid *oid)
 	OUTPUT:
 		RETVAL
 
+
+SV*
+git_oid_allocfmt(git_oid *oid)
+	PREINIT:
+		char *str = NULL;
+
+	CODE:
+		str = git_oid_allocfmt(oid);
+        if (str != NULL) {
+		    RETVAL = newSVpv(str, 0);
+            free(str);
+        }
+        else {
+            RETVAL = &PL_sv_undef;
+        }
+
+	OUTPUT:
+		RETVAL
+
+
 int
 git_oid_cmp(git_oid *a, git_oid *b)
 	CODE:

@@ -58,12 +58,14 @@ sub test_oid {
     isa_ok($oid, 'Git2::Oid', 'oid constructed from a hex string');
 	is($oid->fmt, $sha1hex, 'fmt from hex string matches');
 	is($oid->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
+	is($oid->allocfmt, $sha1hex, 'allocfmt from hex string matches');
 
     my $sha1raw = sha1('I can haz bin string');
     my $oid2 = Git2::Oid->mkraw($sha1raw);
     isa_ok($oid2, 'Git2::Oid', 'oid constructed from a bin string');
 	is($oid2->fmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'fmt from bin string matches');
 	is($oid2->pathfmt, '2a/98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'pathfmt from hex string matches');
+	is($oid2->allocfmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'allocfmt from bin string matches');
 
 	ok($oid->cmp($oid2) > 0);
 	ok($oid2->cmp($oid) < 0);
