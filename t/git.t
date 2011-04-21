@@ -15,6 +15,7 @@ BEGIN {
 
 
 sub main {
+    test_version();
     test_open();
     test_init();
     test_database();
@@ -73,5 +74,16 @@ sub test_oid {
 	is($oid_copy->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 }
 
+
+sub test_version {
+    ok(Git2::VERSION =~ /^[0-9]+\.[0-9]+.[0-9]+$/, "VERSION is a string");
+    ok(Git2::VER_MAJOR    >= 0, "VER_MAJOR is a number");
+    ok(Git2::VER_MINOR    >= 0, "VER_MINOR is a number");
+    ok(Git2::VER_REVISION >= 0, "VER_REVISION is a number");
+
+    # You might be tempted at testing that:
+    #    VERSION == VER_MAJOR.VER_MINOR.VER_REVISION
+    # but this is not always true, at least not with version 0.11.0!
+}
 
 exit main() unless caller;
