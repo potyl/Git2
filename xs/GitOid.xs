@@ -96,6 +96,7 @@ git_oid_cmp(git_oid *a, git_oid *b)
 	OUTPUT:
 		RETVAL
 
+
 SV*
 git_oid_cpy(git_oid *src)
 	PREINIT:
