@@ -56,7 +56,7 @@ sub test_oid {
     my $sha1hex = sha1_hex('Amsterdam QA Hackathon');
     my $oid = Git2::Oid->mkstr($sha1hex);
     isa_ok($oid, 'Git2::Oid', 'oid constructed from a hex string');
-	is($oid->fmt, $sha1hex, 'fmtt from hex string matches');
+	is($oid->fmt, $sha1hex, 'fmt from hex string matches');
 	is($oid->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 
     my $sha1raw = sha1('I can haz bin string');
@@ -72,7 +72,7 @@ sub test_oid {
 
 	my $oid_copy = $oid->cpy;
 	isa_ok($oid_copy, 'Git2::Oid');
-	is($oid_copy->fmt, $sha1hex, 'fmtt from hex string matches');
+	is($oid_copy->fmt, $sha1hex, 'fmt from hex string matches');
 	is($oid_copy->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 }
 
