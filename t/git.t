@@ -16,6 +16,7 @@ BEGIN {
 
 sub main {
     test_version();
+    test_constants();
     test_open();
     test_init();
     test_database();
@@ -84,6 +85,38 @@ sub test_version {
     # You might be tempted at testing that:
     #    VERSION == VER_MAJOR.VER_MINOR.VER_REVISION
     # but this is not always true, at least not with version 0.11.0!
+}
+
+
+sub test_constants {
+    my $code = 0;
+    is(Git2::GIT_SUCCESS, $code--, "GIT_SUCCESS is ok");
+    is(Git2::GIT_ERROR, $code--, "GIT_ERROR is ok");
+    is(Git2::GIT_ENOTOID, $code--, "GIT_ENOTOID is ok");
+	is(Git2::GIT_ENOTFOUND, $code--, "GIT_ENOTFOUND is ok");
+	is(Git2::GIT_ENOMEM, $code--, "GIT_ENOMEM is ok");
+	is(Git2::GIT_EOSERR, $code--, "GIT_EOSERR is ok");
+	is(Git2::GIT_EOBJTYPE, $code--, "GIT_EOBJTYPE is ok");
+	is(Git2::GIT_EOBJCORRUPTED, $code--, "GIT_EOBJCORRUPTED is ok");
+	is(Git2::GIT_ENOTAREPO, $code--, "GIT_ENOTAREPO is ok");
+	is(Git2::GIT_EINVALIDTYPE, $code--, "GIT_EINVALIDTYPE is ok");
+	is(Git2::GIT_EMISSINGOBJDATA, $code--, "GIT_EMISSINGOBJDATA is ok");
+	is(Git2::GIT_EPACKCORRUPTED, $code--, "GIT_EPACKCORRUPTED is ok");
+	is(Git2::GIT_EFLOCKFAIL, $code--, "GIT_EFLOCKFAIL is ok");
+	is(Git2::GIT_EZLIB, $code--, "GIT_EZLIB is ok");
+	is(Git2::GIT_EBUSY, $code--, "GIT_EBUSY is ok");
+	is(Git2::GIT_EBAREINDEX, $code--, "GIT_EBAREINDEX is ok");
+	is(Git2::GIT_EINVALIDREFNAME, $code--, "GIT_EINVALIDREFNAME is ok");
+	is(Git2::GIT_EREFCORRUPTED , $code--, "GIT_EREFCORRUPTED  is ok");
+	is(Git2::GIT_ETOONESTEDSYMREF, $code--, "GIT_ETOONESTEDSYMREF is ok");
+	is(Git2::GIT_EPACKEDREFSCORRUPTED, $code--, "GIT_EPACKEDREFSCORRUPTED is ok");
+	is(Git2::GIT_EINVALIDPATH, $code--, "GIT_EINVALIDPATH is ok");
+	is(Git2::GIT_EREVWALKOVER, $code--, "GIT_EREVWALKOVER is ok");
+	is(Git2::GIT_EINVALIDREFSTATE, $code--, "GIT_EINVALIDREFSTATE is ok");
+	is(Git2::GIT_ENOTIMPLEMENTED, $code--, "GIT_ENOTIMPLEMENTED is ok");
+	is(Git2::GIT_EEXISTS, $code--, "GIT_EEXISTS is ok");
+	is(Git2::GIT_EOVERFLOW, $code--, "GIT_EOVERFLOW is ok");
+	is(Git2::GIT_ENOTNUM, $code--, "GIT_ENOTNUM is ok");
 }
 
 exit main() unless caller;
