@@ -5,7 +5,7 @@ EXTERN_C XS(boot_Git2__Odb);
 EXTERN_C XS(boot_Git2__Oid);
 
 
-MODULE = Git2  PACKAGE = Git2  PREFIX = LIBGIT2_
+MODULE = Git2  PACKAGE = Git2
 
 
 BOOT:
@@ -15,279 +15,101 @@ BOOT:
 
 
 char*
-LIBGIT2_VERSION ()
-	CODE:
-		RETVAL = LIBGIT2_VERSION;
+VERSION ()
+    CODE:
+        RETVAL = LIBGIT2_VERSION;
 
-	OUTPUT:
-		RETVAL
-
-
-int
-LIBGIT2_VER_MAJOR ()
-	CODE:
-		RETVAL = LIBGIT2_VER_MAJOR;
-
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 int
-LIBGIT2_VER_MINOR ()
-	CODE:
-		RETVAL = LIBGIT2_VER_MINOR;
+VER_MAJOR ()
+    ALIAS:
+        VER_MAJOR    = 0
+        VER_MINOR    = 1
+        VER_REVISION = 2
 
-	OUTPUT:
-		RETVAL
+    CODE:
+        switch (ix) {
+            case  0: RETVAL = LIBGIT2_VER_MAJOR; break;
+            case  1: RETVAL = LIBGIT2_VER_MINOR; break;
+            case  2: RETVAL = LIBGIT2_VER_REVISION; break;
+            default:
+                RETVAL = &PL_sv_undef;
+                croak("Unknow value %d", ix);
+            break;
+        }
 
-
-int
-LIBGIT2_VER_REVISION ()
-	CODE:
-		RETVAL = LIBGIT2_VER_REVISION;
-
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 int
 GIT_SUCCESS ()
-	CODE:
-		RETVAL = GIT_SUCCESS;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ERROR ()
-	CODE:
-		RETVAL = GIT_ERROR;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOTOID ()
-	CODE:
-		RETVAL = GIT_ENOTOID;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOTFOUND ()
-	CODE:
-		RETVAL = GIT_ENOTFOUND;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOMEM ()
-	CODE:
-		RETVAL = GIT_ENOMEM;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EOSERR ()
-	CODE:
-		RETVAL = GIT_EOSERR;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EOBJTYPE ()
-	CODE:
-		RETVAL = GIT_EOBJTYPE;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EOBJCORRUPTED ()
-	CODE:
-		RETVAL = GIT_EOBJCORRUPTED;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOTAREPO ()
-	CODE:
-		RETVAL = GIT_ENOTAREPO;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EINVALIDTYPE ()
-	CODE:
-		RETVAL = GIT_EINVALIDTYPE;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EMISSINGOBJDATA ()
-	CODE:
-		RETVAL = GIT_EMISSINGOBJDATA;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EPACKCORRUPTED ()
-	CODE:
-		RETVAL = GIT_EPACKCORRUPTED;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EFLOCKFAIL ()
-	CODE:
-		RETVAL = GIT_EFLOCKFAIL;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EZLIB ()
-	CODE:
-		RETVAL = GIT_EZLIB;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EBUSY ()
-	CODE:
-		RETVAL = GIT_EBUSY;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EBAREINDEX ()
-	CODE:
-		RETVAL = GIT_EBAREINDEX;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EINVALIDREFNAME ()
-	CODE:
-		RETVAL = GIT_EINVALIDREFNAME;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EREFCORRUPTED  ()
-	CODE:
-		RETVAL = GIT_EREFCORRUPTED ;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ETOONESTEDSYMREF ()
-	CODE:
-		RETVAL = GIT_ETOONESTEDSYMREF;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EPACKEDREFSCORRUPTED ()
-	CODE:
-		RETVAL = GIT_EPACKEDREFSCORRUPTED;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EINVALIDPATH ()
-	CODE:
-		RETVAL = GIT_EINVALIDPATH;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EREVWALKOVER ()
-	CODE:
-		RETVAL = GIT_EREVWALKOVER;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EINVALIDREFSTATE ()
-	CODE:
-		RETVAL = GIT_EINVALIDREFSTATE;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOTIMPLEMENTED ()
-	CODE:
-		RETVAL = GIT_ENOTIMPLEMENTED;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EEXISTS ()
-	CODE:
-		RETVAL = GIT_EEXISTS;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_EOVERFLOW ()
-	CODE:
-		RETVAL = GIT_EOVERFLOW;
-
-	OUTPUT:
-		RETVAL
-
-
-int
-GIT_ENOTNUM ()
-	CODE:
-		RETVAL = GIT_ENOTNUM;
-
-	OUTPUT:
-		RETVAL
+    ALIAS:
+        GIT_SUCCESS = 0
+        GIT_ERROR = 1
+        GIT_ENOTOID = 2
+        GIT_ENOTFOUND = 3
+        GIT_ENOMEM = 4
+        GIT_EOSERR = 5
+        GIT_EOBJTYPE = 6
+        GIT_EOBJCORRUPTED = 7
+        GIT_ENOTAREPO = 8
+        GIT_EINVALIDTYPE = 9
+        GIT_EMISSINGOBJDATA = 10
+        GIT_EPACKCORRUPTED = 11
+        GIT_EFLOCKFAIL = 12
+        GIT_EZLIB = 13
+        GIT_EBUSY = 14
+        GIT_EBAREINDEX = 15
+        GIT_EINVALIDREFNAME = 16
+        GIT_EREFCORRUPTED  = 17
+        GIT_ETOONESTEDSYMREF = 18
+        GIT_EPACKEDREFSCORRUPTED = 19
+        GIT_EINVALIDPATH = 20
+        GIT_EREVWALKOVER = 21
+        GIT_EINVALIDREFSTATE = 22
+        GIT_ENOTIMPLEMENTED = 23
+        GIT_EEXISTS = 24
+        GIT_EOVERFLOW = 25
+        GIT_ENOTNUM = 26
+
+    CODE:
+        switch (ix) {
+            case  0: RETVAL = GIT_SUCCESS; break;
+            case  1: RETVAL = GIT_ERROR; break;
+            case  2: RETVAL = GIT_ENOTOID; break;
+            case  3: RETVAL = GIT_ENOTFOUND; break;
+            case  4: RETVAL = GIT_ENOMEM; break;
+            case  5: RETVAL = GIT_EOSERR; break;
+            case  6: RETVAL = GIT_EOBJTYPE; break;
+            case  7: RETVAL = GIT_EOBJCORRUPTED; break;
+            case  8: RETVAL = GIT_ENOTAREPO; break;
+            case  9: RETVAL = GIT_EINVALIDTYPE; break;
+            case 10: RETVAL = GIT_EMISSINGOBJDATA; break;
+            case 11: RETVAL = GIT_EPACKCORRUPTED; break;
+            case 12: RETVAL = GIT_EFLOCKFAIL; break;
+            case 13: RETVAL = GIT_EZLIB; break;
+            case 14: RETVAL = GIT_EBUSY; break;
+            case 15: RETVAL = GIT_EBAREINDEX; break;
+            case 16: RETVAL = GIT_EINVALIDREFNAME; break;
+            case 17: RETVAL = GIT_EREFCORRUPTED ; break;
+            case 18: RETVAL = GIT_ETOONESTEDSYMREF; break;
+            case 19: RETVAL = GIT_EPACKEDREFSCORRUPTED; break;
+            case 20: RETVAL = GIT_EINVALIDPATH; break;
+            case 21: RETVAL = GIT_EREVWALKOVER; break;
+            case 22: RETVAL = GIT_EINVALIDREFSTATE; break;
+            case 23: RETVAL = GIT_ENOTIMPLEMENTED; break;
+            case 24: RETVAL = GIT_EEXISTS; break;
+            case 25: RETVAL = GIT_EOVERFLOW; break;
+            case 26: RETVAL = GIT_ENOTNUM; break;
+            default:
+                RETVAL = &PL_sv_undef;
+                croak("Unknow value %d", ix);
+            break;
+        }
+
+    OUTPUT:
+        RETVAL
