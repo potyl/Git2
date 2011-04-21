@@ -6,3 +6,19 @@ Perl bindings for libgit2 started during the Amsterdam QA hackathon.
 
 This is far from being finished yet.
 Keep in touch or simply send patches!
+
+
+To build simply do:
+
+	perl Makefile.PL && make && make test
+
+
+Under OS X you need to link the library by hand, because the toolchain fails to
+do it :(
+
+	perl Makefile.PL && make && ./osx-link.sh && make test
+
+
+To run the unit tests individually simply do:
+
+	perl -Mblib t/git.t
