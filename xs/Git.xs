@@ -36,7 +36,6 @@ VER_MAJOR ()
             case  1: RETVAL = LIBGIT2_VER_MINOR; break;
             case  2: RETVAL = LIBGIT2_VER_REVISION; break;
             default:
-                RETVAL = &PL_sv_undef;
                 croak("Unknow value %d", ix);
             break;
         }
@@ -106,7 +105,6 @@ GIT_SUCCESS ()
             case 25: RETVAL = GIT_EOVERFLOW; break;
             case 26: RETVAL = GIT_ENOTNUM; break;
             default:
-                RETVAL = &PL_sv_undef;
                 croak("Unknow value %d", ix);
             break;
         }
