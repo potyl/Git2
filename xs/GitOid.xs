@@ -91,8 +91,7 @@ git_oid_cpy(git_oid *src)
 		RETVAL = newRV_noinc(self);
 
 		classname = sv_reftype(SvRV(ST(0)), 1);
-		printf("Class is %s\n", classname);
-		sv_bless(RETVAL, gv_stashsv(classname, 0));
+		sv_bless(RETVAL, gv_stashpv(classname, 0));
 
 		xs_object_magic_attach_struct(aTHX_ self, oid);
 
