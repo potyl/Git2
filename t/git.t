@@ -59,6 +59,11 @@ sub test_oid {
 	is($oid->fmt, $sha1hex, 'fmt from hex string matches');
 	is($oid->pathfmt, 'a7/14613980e7ea3aa88062b66c9220b9cd446d49', 'pathfmt from hex string matches');
 	is($oid->allocfmt, $sha1hex, 'allocfmt from hex string matches');
+	is($oid->to_string(1), '', 'to_string(1) from hex string matches');
+	is($oid->to_string(2), 'a', 'to_string(2) from hex string matches');
+	is($oid->to_string(10), 'a71461398', 'to_string(10) from hex string matches');
+	is($oid->to_string(40), 'a714613980e7ea3aa88062b66c9220b9cd446d4', 'to_string(40) from hex string matches');
+	is($oid->to_string(41), 'a714613980e7ea3aa88062b66c9220b9cd446d49', 'to_string(41) from hex string matches');
 
     my $sha1raw = sha1('I can haz bin string');
     my $oid2 = Git2::Oid->mkraw($sha1raw);
@@ -66,11 +71,16 @@ sub test_oid {
 	is($oid2->fmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'fmt from bin string matches');
 	is($oid2->pathfmt, '2a/98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'pathfmt from hex string matches');
 	is($oid2->allocfmt, '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'allocfmt from bin string matches');
+	is($oid2->to_string(1), '', 'to_string(1) from bin string matches');
+	is($oid2->to_string(2), '2', 'to_string(2) from bin string matches');
+	is($oid2->to_string(10), '2a98d8f0c', 'to_string(10) from bin string matches');
+	is($oid2->to_string(40), '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba', 'to_string(40) from bin string matches');
+	is($oid2->to_string(41), '2a98d8f0cb57dadaa9be5527bf540c4adc6f2ba6', 'to_string(41) from bin string matches');
 
-	ok($oid->cmp($oid2) > 0);
-	ok($oid2->cmp($oid) < 0);
-	ok($oid->cmp($oid) == 0);
-	ok($oid2->cmp($oid2) == 0);
+	ok($oid->cmp($oid2) > 0, "cmp a > b 0");
+	ok($oid2->cmp($oid) < 0, "cmp b < a 0");
+	ok($oid->cmp($oid) == 0, "cmp a == a");
+	ok($oid2->cmp($oid2) == 0, "cmp b == b");
 
 	my $oid_copy = $oid->cpy;
 	isa_ok($oid_copy, 'Git2::Oid');

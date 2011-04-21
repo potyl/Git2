@@ -88,6 +88,26 @@ git_oid_allocfmt(git_oid *oid)
 		RETVAL
 
 
+SV*
+git_oid_to_string(git_oid *oid, size_t n)
+	PREINIT:
+		char *str = NULL;
+
+	CODE:
+        Newxz(str, n, char);
+		git_oid_to_string(str, n, oid);
+        if (str != NULL) {
+		    RETVAL = newSVpv(str, n - 1);
+            free(str);
+        }
+        else {
+            RETVAL = &PL_sv_undef;
+        }
+
+	OUTPUT:
+		RETVAL
+
+
 int
 git_oid_cmp(git_oid *a, git_oid *b)
 	CODE:
