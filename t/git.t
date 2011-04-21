@@ -17,6 +17,7 @@ BEGIN {
 sub main {
     test_version();
     test_constants();
+    test_strerror();
     test_open();
     test_init();
     test_database();
@@ -117,6 +118,36 @@ sub test_constants {
 	is(Git2::GIT_EEXISTS, $code--, "GIT_EEXISTS is ok");
 	is(Git2::GIT_EOVERFLOW, $code--, "GIT_EOVERFLOW is ok");
 	is(Git2::GIT_ENOTNUM, $code--, "GIT_ENOTNUM is ok");
+}
+
+
+sub test_strerror {
+    ok(Git2->strerror(Git2::GIT_ERROR), "strerror GIT_ERROR");
+    ok(Git2->strerror(Git2::GIT_ENOTOID), "strerror GIT_ENOTOID");
+    ok(Git2->strerror(Git2::GIT_ENOTFOUND), "strerror GIT_ENOTFOUND");
+    ok(Git2->strerror(Git2::GIT_ENOMEM), "strerror GIT_ENOMEM");
+    ok(Git2->strerror(Git2::GIT_EOSERR), "strerror GIT_EOSERR");
+    ok(Git2->strerror(Git2::GIT_EOBJTYPE), "strerror GIT_EOBJTYPE");
+    ok(Git2->strerror(Git2::GIT_EOBJCORRUPTED), "strerror GIT_EOBJCORRUPTED");
+    ok(Git2->strerror(Git2::GIT_ENOTAREPO), "strerror GIT_ENOTAREPO");
+    ok(Git2->strerror(Git2::GIT_EINVALIDTYPE), "strerror GIT_EINVALIDTYPE");
+    ok(Git2->strerror(Git2::GIT_EMISSINGOBJDATA), "strerror GIT_EMISSINGOBJDATA");
+    ok(Git2->strerror(Git2::GIT_EPACKCORRUPTED), "strerror GIT_EPACKCORRUPTED");
+    ok(Git2->strerror(Git2::GIT_EFLOCKFAIL), "strerror GIT_EFLOCKFAIL");
+    ok(Git2->strerror(Git2::GIT_EZLIB), "strerror GIT_EZLIB");
+    ok(Git2->strerror(Git2::GIT_EBUSY), "strerror GIT_EBUSY");
+    ok(Git2->strerror(Git2::GIT_EBAREINDEX), "strerror GIT_EBAREINDEX");
+    ok(Git2->strerror(Git2::GIT_EINVALIDREFNAME), "strerror GIT_EINVALIDREFNAME");
+    ok(Git2->strerror(Git2::GIT_EREFCORRUPTED ), "strerror GIT_EREFCORRUPTED ");
+    ok(Git2->strerror(Git2::GIT_ETOONESTEDSYMREF), "strerror GIT_ETOONESTEDSYMREF");
+    ok(Git2->strerror(Git2::GIT_EPACKEDREFSCORRUPTED), "strerror GIT_EPACKEDREFSCORRUPTED");
+    ok(Git2->strerror(Git2::GIT_EINVALIDPATH), "strerror GIT_EINVALIDPATH");
+    ok(Git2->strerror(Git2::GIT_EREVWALKOVER), "strerror GIT_EREVWALKOVER");
+    ok(Git2->strerror(Git2::GIT_EINVALIDREFSTATE), "strerror GIT_EINVALIDREFSTATE");
+    ok(Git2->strerror(Git2::GIT_ENOTIMPLEMENTED), "strerror GIT_ENOTIMPLEMENTED");
+    ok(Git2->strerror(Git2::GIT_EEXISTS), "strerror GIT_EEXISTS");
+    ok(Git2->strerror(Git2::GIT_EOVERFLOW), "strerror GIT_EOVERFLOW");
+    ok(Git2->strerror(Git2::GIT_ENOTNUM), "strerror GIT_ENOTNUM");
 }
 
 exit main() unless caller;

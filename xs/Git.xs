@@ -5,7 +5,7 @@ EXTERN_C XS(boot_Git2__Odb);
 EXTERN_C XS(boot_Git2__Oid);
 
 
-MODULE = Git2  PACKAGE = Git2
+MODULE = Git2  PACKAGE = Git2 PREFIX = git_
 
 
 BOOT:
@@ -111,3 +111,8 @@ GIT_SUCCESS ()
 
     OUTPUT:
         RETVAL
+
+
+char*
+git_strerror (class, int code)
+    C_ARGS: code
