@@ -108,15 +108,6 @@ git_oid_to_string(git_oid *oid, size_t n)
 		RETVAL
 
 
-int
-git_oid_cmp(git_oid *a, git_oid *b)
-	CODE:
-		RETVAL = git_oid_cmp(a, b);
-
-	OUTPUT:
-		RETVAL
-
-
 SV*
 git_oid_cpy(git_oid *src)
 	PREINIT:
@@ -139,6 +130,14 @@ git_oid_cpy(git_oid *src)
 	OUTPUT:
 		RETVAL
 
+
+int
+git_oid_cmp(git_oid *a, git_oid *b)
+	CODE:
+		RETVAL = git_oid_cmp(a, b);
+
+	OUTPUT:
+		RETVAL
 
 
 void
