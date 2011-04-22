@@ -29,13 +29,6 @@ git_oid_mkraw(SV *class, SV *raw_sv);
     CODE:
         raw = (const unsigned char *) SvPV_nolen(raw_sv);
         Newxz(oid, 1, git_oid);
-        /* FIXME there's probably a memory leak or memory corruption here as
-           git_oid_mkraw() expects a const string. I suspect that the library
-           will simply point to the 'raw' pointer which will be freed by Perl
-           as soon as the SV is not needed.
-
-           git_oid_mkstr() might have the same bug :(
-         */
         git_oid_mkraw(oid, raw);
         GIT2PERL_BLESS(oid);
 
