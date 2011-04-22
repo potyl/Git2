@@ -6,11 +6,15 @@ git_odb*               T_PTROBJ_MG_GIT_ODB
 git_oid_class*         T_PTROBJ_MG_CLASS
 git_oid*               T_PTROBJ_MG
 git_oid_shorten*       T_PTROBJ_MG
-
+git_signature*         T_PTROBJ_MG
+git_time_t             T_GIT_TIME_T
 
 INPUT
 T_PTROBJ_MG_GIT_ODB
     $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
+
+T_GIT_TIME_T
+	$var = SvGitTime ($arg);
 
 
 OUTPUT
@@ -29,3 +33,6 @@ T_PTROBJ_MG_GIT_ODB
             sv_bless($arg, gv_stashpv("Git2::Odb", 0));
             xs_object_magic_attach_struct(aTHX_ self, $var);
         }
+
+T_GIT_TIME_T
+	$arg = newSVGitTime ($var);

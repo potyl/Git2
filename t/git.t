@@ -23,6 +23,7 @@ sub main {
     test_database();
     test_oid();
     test_oid_shorten();
+    test_signature();
     return 0;
 }
 
@@ -163,6 +164,7 @@ sub test_strerror {
     ok(Git2->strerror(Git2::GIT_ENOTNUM), "strerror GIT_ENOTNUM");
 }
 
+
 sub test_oid_shorten {
     my ($os, $len, $sha1);
 
@@ -190,5 +192,17 @@ sub test_oid_shorten {
     $len = $os->add('10' . 'a' x 38);
     is($len, 2, "Shorten of 1, second char differs");
 }
+
+
+sub test_signature {
+    my $signature = Git2::Signature->now("Emo", 'emo@example.org');
+    isa_ok($signature, 'Git2::Signature');
+    isa_ok($signature->dup, 'Git2::Signature', "Signature->now->dup is a signature");
+
+    my $signature2 = Git2::Signature->new("Potyl", 'potyl@example.org', time, 0);
+    isa_ok($signature2, 'Git2::Signature');
+    isa_ok($signature->dup, 'Git2::Signature', "Signature->new->dup is a signature");
+}
+
 
 exit main() unless caller;
