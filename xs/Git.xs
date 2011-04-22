@@ -3,6 +3,7 @@
 EXTERN_C XS(boot_Git2__Repository);
 EXTERN_C XS(boot_Git2__Odb);
 EXTERN_C XS(boot_Git2__Oid);
+EXTERN_C XS(boot_Git2__Oid__Shorten);
 
 
 MODULE = Git2  PACKAGE = Git2 PREFIX = git_
@@ -12,6 +13,7 @@ BOOT:
     GIT2PERL_CALL_BOOT (boot_Git2__Repository);
     GIT2PERL_CALL_BOOT (boot_Git2__Odb);
     GIT2PERL_CALL_BOOT (boot_Git2__Oid);
+    GIT2PERL_CALL_BOOT (boot_Git2__Oid__Shorten);
 
 
 char*

@@ -22,6 +22,7 @@ sub main {
     test_init();
     test_database();
     test_oid();
+    test_oid_shorten();
     return 0;
 }
 
@@ -160,6 +161,34 @@ sub test_strerror {
     ok(Git2->strerror(Git2::GIT_EEXISTS), "strerror GIT_EEXISTS");
     ok(Git2->strerror(Git2::GIT_EOVERFLOW), "strerror GIT_EOVERFLOW");
     ok(Git2->strerror(Git2::GIT_ENOTNUM), "strerror GIT_ENOTNUM");
+}
+
+sub test_oid_shorten {
+    my ($os, $len, $sha1);
+
+    $os = Git2::Oid::Shorten->new(5);
+    isa_ok($os, 'Git2::Oid::Shorten');
+
+    $sha1 = 'a' x 40;
+    $len = $os->add($sha1);
+    is($len, 5, "Shorten of 5, first oid");
+
+    $len = $os->add(++$sha1);
+    is($len, 41, "Shorten of 5 last char differs");
+
+
+    undef $os;
+    $os = Git2::Oid::Shorten->new(1);
+    isa_ok($os, 'Git2::Oid::Shorten');
+
+    $len = $os->add('0' . 'a' x 39);
+    is($len, 1, "Shorten of 1, first oid");
+
+    $len = $os->add('1' . 'a' x 39);
+    is($len, 1, "Shorten of 1, first char differs");
+
+    $len = $os->add('10' . 'a' x 38);
+    is($len, 2, "Shorten of 1, second char differs");
 }
 
 exit main() unless caller;
