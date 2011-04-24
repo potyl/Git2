@@ -28,7 +28,7 @@ git2perl_message_error (signed char code);
 do {                                                \
     SV *_self;                                       \
                                                     \
-    _self = (SV *)newHV();                           \
+    _self = (SV *) newHV();                           \
     RETVAL = newRV_noinc(_self);                     \
     sv_bless(RETVAL, hv);                           \
     xs_object_magic_attach_struct(aTHX_ _self, obj); \
