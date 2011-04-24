@@ -13,9 +13,7 @@ git_odb_new(SV *class)
 
 	CODE:
         code = git_odb_new(&odb);
-        if (code) {
-            git2perl_croak_error(code);
-        }
+        GIT2PERL_CROAK(code);
         GIT2PERL_BLESS_FROM_CLASS_SV(odb, class);
 
 	OUTPUT:
@@ -31,9 +29,7 @@ git_odb_open(SV *class, const char *objects_dir)
 
 	CODE:
         code = git_odb_open(&odb, objects_dir);
-        if (code) {
-            git2perl_croak_error(code);
-        }
+        GIT2PERL_CROAK(code);
         GIT2PERL_BLESS_FROM_CLASS_SV(odb, class);
 
 	OUTPUT:
