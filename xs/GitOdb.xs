@@ -16,11 +16,7 @@ git_odb_new(SV *class)
         if (code) {
             git2perl_croak_error(code);
         }
-        self = (SV *)newHV();
-        xs_object_magic_attach_struct(aTHX_ self, odb);
-
-        RETVAL = newRV_noinc(self);
-        sv_bless(RETVAL, gv_stashsv(class, 0));
+        GIT2PERL_BLESS_FROM_CLASS_SV(odb, class);
 
 	OUTPUT:
 		RETVAL
