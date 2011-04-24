@@ -15,9 +15,9 @@
 git_time_t
 SvGitTime (SV *sv) {
 #ifdef USE_64_BIT_ALL
-	return SvIV (sv);
+	return SvIV(sv);
 #else
-	return PORTABLE_STRTOLL (SvPV_nolen (sv), NULL, 10);
+	return PORTABLE_STRTOLL(SvPV_nolen(sv), NULL, 10);
 #endif
 }
 
@@ -51,7 +51,7 @@ git_signature_new (SV *class, const char *name, const char *email, git_time_t ti
 
     CODE:
         sig = git_signature_new(name, email, time, offset);
-        GIT2PERL_BLESS(sig);
+        GIT2PERL_BLESS_FROM_CLASS_SV(sig, class);
 
 	OUTPUT:
 		RETVAL
@@ -64,7 +64,7 @@ git_signature_now (SV *class, const char *name, const char *email)
 
     CODE:
         sig = git_signature_now(name, email);
-        GIT2PERL_BLESS(sig);
+        GIT2PERL_BLESS_FROM_CLASS_SV(sig, class);
 
 	OUTPUT:
 		RETVAL
@@ -75,20 +75,11 @@ git_signature_dup (SV *self)
     PREINIT:
         const git_signature *sig;
         git_signature *dup;
-        const char *classname;
-        SV *ret;
 
     CODE:
         sig = xs_object_magic_get_struct_rv(aTHX_ self);
         dup = git_signature_dup(sig);
-
-		ret = (SV *)newHV();
-		RETVAL = newRV_noinc(ret);
-
-		classname = sv_reftype(SvRV(self), 1);
-		sv_bless(RETVAL, gv_stashpv(classname, 0));
-
-		xs_object_magic_attach_struct(aTHX_ ret, dup);
+        GIT2PERL_BLESS_FROM_SV(dup, self);
 
 	OUTPUT:
 		RETVAL

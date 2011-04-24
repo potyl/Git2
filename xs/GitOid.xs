@@ -14,7 +14,7 @@ git_oid_mkstr(SV *class, const char *hex)
         Newxz(oid, 1, git_oid);
         code = git_oid_mkstr(oid, hex);
         GIT2PERL_CROAK(code);
-        GIT2PERL_BLESS(oid);
+        GIT2PERL_BLESS_FROM_CLASS_SV(oid, class);
 
 	OUTPUT:
 		RETVAL
@@ -30,7 +30,7 @@ git_oid_mkraw(SV *class, SV *raw_sv);
         raw = (const unsigned char *) SvPV_nolen(raw_sv);
         Newxz(oid, 1, git_oid);
         git_oid_mkraw(oid, raw);
-        GIT2PERL_BLESS(oid);
+        GIT2PERL_BLESS_FROM_CLASS_SV(oid, class);
 
 	OUTPUT:
 		RETVAL
@@ -105,20 +105,11 @@ SV*
 git_oid_cpy(git_oid *src)
 	PREINIT:
 		git_oid *oid;
-		SV *self;
-		char *classname;
 
 	CODE:
 		Newxz(oid, 1, git_oid);
 		git_oid_cpy(oid, src);
-
-		self = (SV *)newHV();
-		RETVAL = newRV_noinc(self);
-
-		classname = sv_reftype(SvRV(ST(0)), 1);
-		sv_bless(RETVAL, gv_stashpv(classname, 0));
-
-		xs_object_magic_attach_struct(aTHX_ self, oid);
+		GIT2PERL_BLESS_FROM_SV(oid, ST(0));
 
 	OUTPUT:
 		RETVAL
