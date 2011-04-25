@@ -25,7 +25,6 @@ git_odb_open(SV *class, const char *objects_dir)
 	PREINIT:
 		git_odb *odb = NULL;
         int code;
-        SV *self;
 
 	CODE:
         code = git_odb_open(&odb, objects_dir);
