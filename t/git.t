@@ -52,6 +52,15 @@ sub test_database {
     
     my $database = $repo->database();
     isa_ok($database, 'Git2::Odb', 'getting database object from the repository');
+
+    # Test $odb->exists()
+    $repo = Git2::Repository->open('.git');
+    my $odb = $repo->database;
+    my $oid = Git2::Oid->mkstr('32028a0b4d0ed4610dd97584f8e0660eaf7f5659');
+    is($odb->exists($oid), 1, "Found first commit");
+
+    my $oid2 = Git2::Oid->mkstr('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    is($odb->exists($oid2), 0, "Can't find commit that doesn't exist");
 }
 
 

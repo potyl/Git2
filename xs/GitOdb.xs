@@ -35,5 +35,14 @@ git_odb_open(SV *class, const char *objects_dir)
 		RETVAL
 
 
+int
+git_odb_exists(git_odb *odb, git_oid *oid)
+	CODE:
+        RETVAL = git_odb_exists(odb, oid);
+
+	OUTPUT:
+		RETVAL
+
+
 void
 git_odb_close(git_odb *odb)
