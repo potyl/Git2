@@ -45,6 +45,7 @@ sub test_init {
     isa_ok($repo2, 'Git2::Repository', 'construct repository object with open() on the same folder');
 }
 
+
 sub test_database {
     my $dir = tempdir( CLEANUP => 1 );
     my $repo = Git2::Repository->init($dir, 1);
