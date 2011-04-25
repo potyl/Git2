@@ -71,15 +71,13 @@ git_signature_now (SV *class, const char *name, const char *email)
 
 
 SV*
-git_signature_dup (SV *self)
+git_signature_dup (git_signature *sig)
     PREINIT:
-        const git_signature *sig;
         git_signature *dup;
 
     CODE:
-        sig = xs_object_magic_get_struct_rv(aTHX_ self);
         dup = git_signature_dup(sig);
-        GIT2PERL_BLESS_FROM_SV(dup, self);
+        GIT2PERL_BLESS_FROM_SV(dup, ST(0));
 
 	OUTPUT:
 		RETVAL
