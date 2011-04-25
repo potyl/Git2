@@ -9,9 +9,7 @@ git_repository_open(SV *class, OUTLIST git_repository_class *repo, const char *p
     C_ARGS: &repo, path
 
 	POSTCALL:
-        if (RETVAL) {
-            git2perl_croak_error(RETVAL);
-        }
+        GIT2PERL_CROAK(RETVAL);
 
 
 NO_OUTPUT int
@@ -19,9 +17,7 @@ git_repository_init(SV *class, OUTLIST git_repository_class *repo, const char *p
     C_ARGS: &repo, path, is_bare
 
 	POSTCALL:
-        if (RETVAL) {
-            git2perl_croak_error(RETVAL);
-        }
+        GIT2PERL_CROAK(RETVAL);
 
 
 git_odb*
