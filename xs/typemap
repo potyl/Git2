@@ -9,6 +9,7 @@ git_oid_shorten*       T_PTROBJ_MG
 git_signature*         T_PTROBJ_MG
 git_time_t             T_GIT_TIME_T
 git_odb_object*        T_PTROBJ_MG
+git_object*            T_PTROBJ_MG
 
 INPUT
 T_PTROBJ_MG_GIT_ODB
