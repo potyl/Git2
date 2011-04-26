@@ -43,6 +43,20 @@ git_odb_exists(git_odb *odb, git_oid *oid)
 	OUTPUT:
 		RETVAL
 
+SV*
+git_odb_read(git_odb *db, git_oid *id);
+	PREINIT:
+		git_odb_object *object;
+		int code;
+
+	CODE:
+		code = git_odb_read(&object, db, id);
+		GIT2PERL_CROAK(code);
+		GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Odb::Object");
+
+	OUTPUT:
+		RETVAL
+
 
 void
 git_odb_close(git_odb *odb)
