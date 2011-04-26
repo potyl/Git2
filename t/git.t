@@ -59,6 +59,10 @@ sub test_database {
     my $oid = Git2::Oid->mkstr('32028a0b4d0ed4610dd97584f8e0660eaf7f5659');
     is($odb->exists($oid), 1, "Found first commit");
 
+	# Test $odb->read();
+    my $obj = $odb->read($oid);
+    isa_ok($obj, 'Git2::Odb::Object');
+
     my $oid2 = Git2::Oid->mkstr('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     is($odb->exists($oid2), 0, "Can't find commit that doesn't exist");
 }
