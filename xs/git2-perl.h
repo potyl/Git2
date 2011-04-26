@@ -24,20 +24,18 @@ git2perl_message_error (signed char code);
 #define git_oid_class        git_oid
 
 
-#define GIT2PERL_BLESS_FROM_HV(obj, hv)             \
-do {                                                \
+#define GIT2PERL_BLESS_FROM_HV(obj, hv)              \
+do {                                                 \
     SV *_self;                                       \
-                                                    \
-    _self = (SV *) newHV();                           \
+                                                     \
+    _self = (SV *) newHV();                          \
     RETVAL = newRV_noinc(_self);                     \
-    sv_bless(RETVAL, hv);                           \
+    sv_bless(RETVAL, hv);                            \
     xs_object_magic_attach_struct(aTHX_ _self, obj); \
 } while (0)
 #define GIT2PERL_BLESS_FROM_SV(obj, sv)                GIT2PERL_BLESS_FROM_CLASSNAME(obj, sv_reftype(SvRV(sv), 1))
 #define GIT2PERL_BLESS_FROM_CLASSNAME(obj, classname)  GIT2PERL_BLESS_FROM_HV(obj, gv_stashpv(classname, 0))
 #define GIT2PERL_BLESS_FROM_CLASS_SV(obj, sv)          GIT2PERL_BLESS_FROM_HV(obj, gv_stashsv(sv, 0))
-
-
 
 
 #define GIT2PERL_CROAK(code) if (code) { git2perl_croak_error(code); }
