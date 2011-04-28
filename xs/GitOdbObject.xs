@@ -8,6 +8,17 @@ void
 git_odb_object_close(git_odb_object *obj)
 
 
-git_oid_nofree*
+SV*
 git_odb_object_id(git_odb_object *obj)
-#/* FIXME it's better to clone the reference */
+	PREINIT:
+		const git_oid *oid;
+		git_oid *dup;
+
+	CODE:
+		oid = git_odb_object_id(obj);
+		Newxz(dup, 1, git_oid);
+		git_oid_cpy(dup, oid);
+		GIT2PERL_BLESS_FROM_CLASSNAME(dup, "Git2::Oid");
+
+	OUTPUT:
+		RETVAL
