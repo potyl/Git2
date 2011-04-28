@@ -56,12 +56,16 @@ sub test_database {
     # Test $odb->exists()
     $repo = Git2::Repository->open('.git');
     my $odb = $repo->database;
-    my $oid = Git2::Oid->mkstr('32028a0b4d0ed4610dd97584f8e0660eaf7f5659');
+    my $sha1hex = '32028a0b4d0ed4610dd97584f8e0660eaf7f5659';
+    my $oid = Git2::Oid->mkstr($sha1hex);
     is($odb->exists($oid), 1, "Found first commit");
 
 	# Test $odb->read();
     my $obj = $odb->read($oid);
     isa_ok($obj, 'Git2::Odb::Object');
+
+    isa_ok($obj->id, "Git2::Oid");
+    is($obj->id->fmt, $sha1hex, "Oid hex matches");
 
     my $oid2 = Git2::Oid->mkstr('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     is($odb->exists($oid2), 0, "Can't find commit that doesn't exist");
