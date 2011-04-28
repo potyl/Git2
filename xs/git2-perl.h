@@ -22,6 +22,7 @@ git2perl_message_error (signed char code);
 #define git_repository_class git_repository
 #define git_odb_class        git_odb
 #define git_oid_class        git_oid
+#define git_oid_nofree       git_oid
 
 
 #define GIT2PERL_BLESS_FROM_HV(obj, hv)              \

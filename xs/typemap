@@ -5,6 +5,7 @@ git_odb_class*         T_PTROBJ_MG_CLASS
 git_odb*               T_PTROBJ_MG_GIT_ODB
 git_oid_class*         T_PTROBJ_MG_CLASS
 git_oid*               T_PTROBJ_MG_GIT_OID
+git_oid_nofree*        T_PTROBJ_MG_GIT_OID_NOFREE
 git_oid_shorten*       T_PTROBJ_MG
 git_signature*         T_PTROBJ_MG
 git_time_t             T_GIT_TIME_T
@@ -16,6 +17,9 @@ T_PTROBJ_MG_GIT_ODB
     $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
 
 T_PTROBJ_MG_GIT_OID
+    $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
+
+T_PTROBJ_MG_GIT_OID_NOFREE
     $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
 
 T_GIT_TIME_T
@@ -44,6 +48,14 @@ T_PTROBJ_MG_GIT_OID
             SV *_self = (SV *)newHV();
             $arg = newRV_noinc(_self);
             sv_bless($arg, gv_stashpv("Git2::Oid", 0));
+            xs_object_magic_attach_struct(aTHX_ _self, $var);
+        }
+
+T_PTROBJ_MG_GIT_OID_NOFREE
+        {
+            SV *_self = (SV *)newHV();
+            $arg = newRV_noinc(_self);
+            sv_bless($arg, gv_stashpv("Git2::Oid::NoFree", 0));
             xs_object_magic_attach_struct(aTHX_ _self, $var);
         }
 
