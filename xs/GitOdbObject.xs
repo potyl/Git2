@@ -10,3 +10,4 @@ git_odb_object_close(git_odb_object *obj)
 
 git_oid_nofree*
 git_odb_object_id(git_odb_object *obj)
+#/* FIXME it's better to clone the reference */
