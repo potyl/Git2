@@ -10,6 +10,7 @@ EXTERN_C XS(boot_Git2__Object);
 
 #define SWITCH_VALUE(val) case val: RETVAL = val; break
 
+
 MODULE = Git2  PACKAGE = Git2 PREFIX = git_
 
 
