@@ -64,6 +64,15 @@ sub test_database {
     my $obj = $odb->read($oid);
     isa_ok($obj, 'Git2::Odb::Object');
 
+	my $data = <<'__OBJECT__';
+tree 2a43ba2fcf0568f5fdd695e34e63c66b870decdb
+author Emmanuel Rodriguez <emmanuel.rodriguez@booking.com> 1302963263 +0200
+committer Emmanuel Rodriguez <emmanuel.rodriguez@booking.com> 1302963263 +0200
+
+Initial import
+__OBJECT__
+	is($obj->data, $data, "Object's data matches");
+
     isa_ok($obj->id, "Git2::Oid");
     is($obj->id->fmt, $sha1hex, "Oid hex matches");
 

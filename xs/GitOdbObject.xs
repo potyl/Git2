@@ -22,3 +22,19 @@ git_odb_object_id(git_odb_object *obj)
 
 	OUTPUT:
 		RETVAL
+
+
+SV*
+git_odb_object_data(git_odb_object *object)
+	PREINIT:
+		char *data_str;
+		void *data;
+		size_t size;
+
+	CODE:
+		data = git_odb_object_data(object);
+		size = git_odb_object_size(object);
+		RETVAL = newSVpv(data, size);
+
+	OUTPUT:
+		RETVAL
