@@ -38,3 +38,7 @@ git_odb_object_data(git_odb_object *object)
 
 	OUTPUT:
 		RETVAL
+
+
+size_t
+git_odb_object_size(git_odb_object *object)

@@ -72,6 +72,7 @@ committer Emmanuel Rodriguez <emmanuel.rodriguez@booking.com> 1302963263 +0200
 Initial import
 __OBJECT__
 	is($obj->data, $data, "Object's data matches");
+	is($obj->size, length($data), "Object's size matches");
 
     isa_ok($obj->id, "Git2::Oid");
     is($obj->id->fmt, $sha1hex, "Oid hex matches");
