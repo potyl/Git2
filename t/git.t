@@ -75,11 +75,17 @@ __OBJECT__
 	is($obj->size, length($data), "Object's size matches");
 	is($obj->type, Git2::GIT_OBJ_COMMIT, "Object's type matches");
 
+	my @headers = $odb->read_header($oid);
+	is_deeply(\@headers, [length($data), Git2::GIT_OBJ_COMMIT], "read_header matches");
+
     isa_ok($obj->id, "Git2::Oid");
     is($obj->id->fmt, $sha1hex, "Oid hex matches");
 
     my $oid2 = Git2::Oid->mkstr('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     is($odb->exists($oid2), 0, "Can't find commit that doesn't exist");
+
+	@headers = $odb->read_header($oid2);
+	is_deeply(\@headers, [], "read_header in list context for an oid that doesn't exist");
 }
 
 

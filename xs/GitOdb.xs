@@ -43,6 +43,7 @@ git_odb_exists(git_odb *odb, git_oid *oid)
 	OUTPUT:
 		RETVAL
 
+
 SV*
 git_odb_read(git_odb *db, git_oid *id);
 	PREINIT:
@@ -56,6 +57,25 @@ git_odb_read(git_odb *db, git_oid *id);
 
 	OUTPUT:
 		RETVAL
+
+void
+git_odb_read_header(git_odb *db, git_oid *id)
+	PREINIT:
+		size_t len;
+		git_otype type;
+		int code;
+
+	PPCODE:
+		code = git_odb_read_header(&len, &type, db, id);
+		if (code == GIT_ENOTFOUND) {
+			/* Return emty stack: empty list: */
+			XSRETURN_EMPTY;
+		}
+
+		/* Return (len, type) */
+		EXTEND(SP, 2);
+		PUSHs(sv_2mortal(newSViv(len)));
+		PUSHs(sv_2mortal(newSViv(type)));
 
 
 void
