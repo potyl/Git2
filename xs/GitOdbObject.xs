@@ -42,3 +42,7 @@ git_odb_object_data(git_odb_object *object)
 
 size_t
 git_odb_object_size(git_odb_object *object)
+
+
+int
+git_odb_object_type(git_odb_object *object)
