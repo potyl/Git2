@@ -8,6 +8,7 @@ EXTERN_C XS(boot_Git2__Signature);
 EXTERN_C XS(boot_Git2__Odb__Object);
 EXTERN_C XS(boot_Git2__Object);
 
+#define SWITCH_VALUE(val) case val: RETVAL = val; break
 
 MODULE = Git2  PACKAGE = Git2 PREFIX = git_
 
@@ -112,6 +113,41 @@ GIT_SUCCESS ()
             case 24: RETVAL = GIT_EEXISTS; break;
             case 25: RETVAL = GIT_EOVERFLOW; break;
             case 26: RETVAL = GIT_ENOTNUM; break;
+            default:
+                croak("Unknow value %d", ix);
+            break;
+        }
+
+    OUTPUT:
+        RETVAL
+
+
+int
+GIT_OBJ_ANY ()
+    ALIAS:
+        GIT_OBJ_ANY        = GIT_OBJ_ANY
+        GIT_OBJ_BAD        = GIT_OBJ_BAD
+        GIT_OBJ__EXT1      = GIT_OBJ__EXT1
+        GIT_OBJ_COMMIT     = GIT_OBJ_COMMIT
+        GIT_OBJ_TREE       = GIT_OBJ_TREE
+        GIT_OBJ_BLOB       = GIT_OBJ_BLOB
+        GIT_OBJ_TAG        = GIT_OBJ_TAG
+        GIT_OBJ__EXT2      = GIT_OBJ__EXT2
+        GIT_OBJ_OFS_DELTA  = GIT_OBJ_OFS_DELTA
+        GIT_OBJ_REF_DELTA  = GIT_OBJ_REF_DELTA
+
+    CODE:
+        switch (ix) {
+            SWITCH_VALUE(GIT_OBJ_ANY);
+            SWITCH_VALUE(GIT_OBJ_BAD);
+            SWITCH_VALUE(GIT_OBJ__EXT1);
+            SWITCH_VALUE(GIT_OBJ_COMMIT);
+            SWITCH_VALUE(GIT_OBJ_TREE);
+            SWITCH_VALUE(GIT_OBJ_BLOB);
+            SWITCH_VALUE(GIT_OBJ_TAG);
+            SWITCH_VALUE(GIT_OBJ__EXT2);
+            SWITCH_VALUE(GIT_OBJ_OFS_DELTA);
+            SWITCH_VALUE(GIT_OBJ_REF_DELTA);
             default:
                 croak("Unknow value %d", ix);
             break;

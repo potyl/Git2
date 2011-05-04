@@ -160,6 +160,20 @@ sub test_constants {
 	is(Git2::GIT_EEXISTS, $code--, "GIT_EEXISTS is ok");
 	is(Git2::GIT_EOVERFLOW, $code--, "GIT_EOVERFLOW is ok");
 	is(Git2::GIT_ENOTNUM, $code--, "GIT_ENOTNUM is ok");
+
+
+	$code = -2;
+	is(Git2::GIT_OBJ_ANY, $code++, "GIT_OBJ_ANY is ok");
+	is(Git2::GIT_OBJ_BAD, $code++, "GIT_OBJ_BAD is ok");
+	is(Git2::GIT_OBJ__EXT1, $code++, "GIT_OBJ__EXT1 is ok");
+	is(Git2::GIT_OBJ_COMMIT, $code++, "GIT_OBJ_COMMIT is ok");
+
+	is(Git2::GIT_OBJ_TREE, $code++, "GIT_OBJ_TREE is ok");
+	is(Git2::GIT_OBJ_BLOB, $code++, "GIT_OBJ_BLOB is ok");
+	is(Git2::GIT_OBJ_TAG, $code++, "GIT_OBJ_TAG is ok");
+	is(Git2::GIT_OBJ__EXT2, $code++, "GIT_OBJ__EXT2 is ok");
+	is(Git2::GIT_OBJ_OFS_DELTA, $code++, "GIT_OBJ_OFS_DELTA is ok");
+	is(Git2::GIT_OBJ_REF_DELTA, $code++, "GIT_OBJ_REF_DELTA is ok");
 }
 
 
