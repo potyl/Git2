@@ -168,7 +168,6 @@ sub test_constants {
 	is(Git2::GIT_OBJ_BAD, $code++, "GIT_OBJ_BAD is ok");
 	is(Git2::GIT_OBJ__EXT1, $code++, "GIT_OBJ__EXT1 is ok");
 	is(Git2::GIT_OBJ_COMMIT, $code++, "GIT_OBJ_COMMIT is ok");
-
 	is(Git2::GIT_OBJ_TREE, $code++, "GIT_OBJ_TREE is ok");
 	is(Git2::GIT_OBJ_BLOB, $code++, "GIT_OBJ_BLOB is ok");
 	is(Git2::GIT_OBJ_TAG, $code++, "GIT_OBJ_TAG is ok");
