@@ -6,12 +6,19 @@ use warnings;
 use Test::More 'no_plan';
 #use Test::More tests => 2;
 use File::Temp 'tempdir';
+use File::Spec::Functions 'catdir';
+use FindBin '$RealBin';
+
 use Data::Dumper;
 use Digest::SHA1  qw(sha1 sha1_hex);
+
 
 BEGIN {
     use_ok('Git2');
 }
+
+
+my $SAMPLE_REPO_DIR = catdir($RealBin, '..', 'sample-repo');
 
 
 sub main {
@@ -29,8 +36,7 @@ sub main {
 
 
 sub test_open {
-    my $dir = '.git';
-    my $repo = Git2::Repository->open($dir);
+    my $repo = Git2::Repository->open($SAMPLE_REPO_DIR);
     isa_ok($repo, 'Git2::Repository');
 }
 
@@ -54,9 +60,9 @@ sub test_database {
     isa_ok($database, 'Git2::Odb', 'getting database object from the repository');
 
     # Test $odb->exists()
-    $repo = Git2::Repository->open('.git');
+    $repo = Git2::Repository->open($SAMPLE_REPO_DIR);
     my $odb = $repo->database;
-    my $sha1hex = '32028a0b4d0ed4610dd97584f8e0660eaf7f5659';
+    my $sha1hex = '9e50c4af90e4a175bffba6683fd1ec2f9085d541';
     my $oid = Git2::Oid->mkstr($sha1hex);
     is($odb->exists($oid), 1, "Found first commit");
 
@@ -65,11 +71,11 @@ sub test_database {
     isa_ok($obj, 'Git2::Odb::Object');
 
 	my $data = <<'__OBJECT__';
-tree 2a43ba2fcf0568f5fdd695e34e63c66b870decdb
-author Emmanuel Rodriguez <emmanuel.rodriguez@booking.com> 1302963263 +0200
-committer Emmanuel Rodriguez <emmanuel.rodriguez@booking.com> 1302963263 +0200
+tree 8202e50b78a406275c6a15053cf269a3b6d021ca
+author Emmanuel Rodriguez <emmanuel.rodriguez@gmail.com> 1304768126 +0200
+committer Emmanuel Rodriguez <emmanuel.rodriguez@gmail.com> 1304768126 +0200
 
-Initial import
+Import
 __OBJECT__
 	is($obj->data, $data, "Object's data matches");
 	is($obj->size, length($data), "Object's size matches");
