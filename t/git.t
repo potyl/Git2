@@ -95,6 +95,11 @@ __OBJECT__
 
 	$odb->write($oid2, "Hello world", Git2::GIT_OBJ_BLOB);
     is($odb->exists($oid2), 1, "Found new object exist");
+    $obj = $odb->read($oid2);
+    isa_ok($obj, 'Git2::Odb::Object');
+	is($obj->data, "Hello world", "Object's data matches");
+	is($obj->size, 11, "New object's size matches");
+	is($obj->type, Git2::GIT_OBJ_BLOB, "New object's type matches");
 }
 
 
