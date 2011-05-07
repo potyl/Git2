@@ -88,10 +88,13 @@ __OBJECT__
     is($obj->id->fmt, $sha1hex, "Oid hex matches");
 
     my $oid2 = Git2::Oid->mkstr('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    is($odb->exists($oid2), 0, "Can't find commit that doesn't exist");
+    is($odb->exists($oid2), 0, "Can't find an object that doesn't exist");
 
 	@headers = $odb->read_header($oid2);
 	is_deeply(\@headers, [], "read_header in list context for an oid that doesn't exist");
+
+	$odb->write($oid2, "Hello world", Git2::GIT_OBJ_BLOB);
+    is($odb->exists($oid2), 1, "Found new object exist");
 }
 
 

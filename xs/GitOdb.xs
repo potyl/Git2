@@ -58,6 +58,7 @@ git_odb_read(git_odb *db, git_oid *id);
 	OUTPUT:
 		RETVAL
 
+
 void
 git_odb_read_header(git_odb *db, git_oid *id)
 	PREINIT:
@@ -76,6 +77,21 @@ git_odb_read_header(git_odb *db, git_oid *id)
 		EXTEND(SP, 2);
 		PUSHs(sv_2mortal(newSViv(len)));
 		PUSHs(sv_2mortal(newSViv(type)));
+
+
+void
+git_odb_write(git_odb *db, git_oid *id, SV *data_sv, SV* type_sv)
+	PREINIT:
+		const void *data;
+		size_t len;
+		git_otype type;
+		int code;
+
+	CODE:
+		data = (const void *) SvPV(data_sv, len);
+		type = SvIV(type_sv);
+		code = git_odb_write(id, db, data, len, type);
+		GIT2PERL_CROAK(code);
 
 
 void
