@@ -79,9 +79,10 @@ git_odb_read_header(git_odb *db, git_oid *id)
 		PUSHs(sv_2mortal(newSViv(type)));
 
 
-void
-git_odb_write(git_odb *db, git_oid *id, SV *data_sv, SV* type_sv)
+SV*
+git_odb_write(git_odb *db, SV *data_sv, SV* type_sv)
 	PREINIT:
+		git_oid *oid;
 		const void *data;
 		size_t len;
 		git_otype type;
@@ -90,8 +91,13 @@ git_odb_write(git_odb *db, git_oid *id, SV *data_sv, SV* type_sv)
 	CODE:
 		data = (const void *) SvPV(data_sv, len);
 		type = SvIV(type_sv);
-		code = git_odb_write(id, db, data, len, type);
+		Newxz(oid, 1, git_oid);
+		code = git_odb_write(oid, db, data, len, type);
 		GIT2PERL_CROAK(code);
+		GIT2PERL_BLESS_FROM_CLASSNAME(oid, "Git2::Oid");
+
+	OUTPUT:
+		RETVAL
 
 
 void

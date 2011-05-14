@@ -93,9 +93,11 @@ __OBJECT__
 	@headers = $odb->read_header($oid2);
 	is_deeply(\@headers, [], "read_header in list context for an oid that doesn't exist");
 
-	$odb->write($oid2, "Hello world", Git2::GIT_OBJ_BLOB);
-    is($odb->exists($oid2), 1, "Found new object exist");
-    $obj = $odb->read($oid2);
+	my $oid3 = $odb->write("Hello world", Git2::GIT_OBJ_BLOB);
+	isa_ok($oid3, 'Git2::Oid');
+	is($oid3->fmt, "70c379b63ffa0795fdbfbc128e5a2818397b7ef8", "Write returns the right oid");
+    is($odb->exists($oid3), 1, "Found new object exist");
+    $obj = $odb->read($oid3);
     isa_ok($obj, 'Git2::Odb::Object');
 	is($obj->data, "Hello world", "Object's data matches");
 	is($obj->size, 11, "New object's size matches");
