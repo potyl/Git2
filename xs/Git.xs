@@ -7,6 +7,8 @@ EXTERN_C XS(boot_Git2__Oid__Shorten);
 EXTERN_C XS(boot_Git2__Signature);
 EXTERN_C XS(boot_Git2__Odb__Object);
 EXTERN_C XS(boot_Git2__Object);
+EXTERN_C XS(boot_Git2__Blob);
+
 
 #define SWITCH_VALUE(val) case val: RETVAL = val; break
 
@@ -22,6 +24,7 @@ BOOT:
     GIT2PERL_CALL_BOOT (boot_Git2__Signature);
     GIT2PERL_CALL_BOOT (boot_Git2__Odb__Object);
     GIT2PERL_CALL_BOOT (boot_Git2__Object);
+    GIT2PERL_CALL_BOOT (boot_Git2__Blob);
 
 
 char*
