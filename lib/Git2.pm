@@ -17,4 +17,9 @@ sub DESTROY {
 	# Empty, we can't free this as a parent keeps a ref
 }
 
+
+package Git2::Blob;
+
+our @ISA = ('Git2::Object');
+
 1;
