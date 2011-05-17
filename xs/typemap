@@ -4,6 +4,7 @@ git_repository*        T_PTROBJ_MG_GIT_REPOSITORY
 git_odb_class*         T_PTROBJ_MG_CLASS
 git_odb*               T_PTROBJ_MG_GIT_ODB
 git_oid_class*         T_PTROBJ_MG_CLASS
+const git_oid*         T_PTROBJ_MG_GIT_OID
 git_oid*               T_PTROBJ_MG_GIT_OID
 git_oid_nofree*        T_PTROBJ_MG_GIT_OID_NOFREE
 git_oid_shorten*       T_PTROBJ_MG
