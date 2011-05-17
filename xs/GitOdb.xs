@@ -100,5 +100,26 @@ git_odb_write(git_odb *db, SV *data_sv, SV* type_sv)
 		RETVAL
 
 
+SV*
+git_odb_hash(class, SV *data_sv, SV* type_sv)
+	PREINIT:
+		git_oid *oid;
+		const void *data;
+		size_t len;
+		git_otype type;
+		int code;
+
+	CODE:
+		data = (const void *) SvPV(data_sv, len);
+		type = SvIV(type_sv);
+		Newxz(oid, 1, git_oid);
+		code = git_odb_hash(oid, data, len, type);
+		GIT2PERL_CROAK(code);
+		GIT2PERL_BLESS_FROM_CLASSNAME(oid, "Git2::Oid");
+
+	OUTPUT:
+		RETVAL
+
+
 void
 git_odb_close(git_odb *odb)

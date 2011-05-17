@@ -102,6 +102,14 @@ __OBJECT__
 	is($obj->data, "Hello world", "Object's data matches");
 	is($obj->size, 11, "New object's size matches");
 	is($obj->type, Git2::GIT_OBJ_BLOB, "New object's type matches");
+
+	my $oid4 = Git2::Odb->hash("Hello world", Git2::GIT_OBJ_BLOB);
+	isa_ok($oid4, 'Git2::Oid');
+	is($oid4->fmt, "70c379b63ffa0795fdbfbc128e5a2818397b7ef8", "Class::hash returns the right oid");
+
+	my $oid5 = $odb->hash("Hello world", Git2::GIT_OBJ_BLOB);
+	isa_ok($oid5, 'Git2::Oid');
+	is($oid5->fmt, "70c379b63ffa0795fdbfbc128e5a2818397b7ef8", "Obj->hash returns the right oid");
 }
 
 
