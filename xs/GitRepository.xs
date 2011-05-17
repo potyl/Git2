@@ -24,6 +24,30 @@ git_odb*
 git_repository_database (git_repository *repo)
 
 
+SV*
+lookup (git_repository *repo, git_oid *id, int type)
+	PREINIT:
+		git_object *object;
+		int code;
+
+	CODE:
+		code = git_object_read(&object, repo, id, type);
+		GIT2PERL_CROAK(code);
+
+		switch (type) {
+			case GIT_OBJ_BLOB:
+				GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Blob");
+			break;
+
+			default:
+				GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Object");
+			break;
+		}
+
+	OUTPUT:
+		RETVAL
+
+
 void
 DESTROY(git_repository *repo)
     CODE:
