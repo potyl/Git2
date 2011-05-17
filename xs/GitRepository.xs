@@ -31,7 +31,7 @@ lookup (git_repository *repo, git_oid *id, int type)
 		int code;
 
 	CODE:
-		code = git_object_read(&object, repo, id, type);
+		code = git_object_lookup(&object, repo, id, type);
 		GIT2PERL_CROAK(code);
 
 		switch (type) {
