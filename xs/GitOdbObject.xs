@@ -46,3 +46,9 @@ git_odb_object_size(git_odb_object *object)
 
 int
 git_odb_object_type(git_odb_object *object)
+
+
+void
+DESTROY(git_odb_object *object)
+	CODE:
+		git_odb_object_close(object);
