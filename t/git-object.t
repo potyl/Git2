@@ -34,9 +34,9 @@ sub test_blob {
 	isa_ok($blob, 'Git2::Object', "A blob is an object");
 	isa_ok($blob, 'Git2::Blob', "A blob is a blob");
 
-	# FIXME this segfaults
-	#my $id = $blob->id;
-	#isa_ok($id, "Git2::Oid");
+	my $id = $blob->id;
+	isa_ok($id, "Git2::Oid");
+	is($id->fmt, $sha1hex, "Oid sha1hex matches");
 
 	is($blob->type, Git2::GIT_OBJ_BLOB, "Blob type is as expected");
 
