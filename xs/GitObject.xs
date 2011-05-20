@@ -12,7 +12,7 @@ int
 git_object_type(git_object *object)
 
 
-git_repository*
+const git_repository*
 git_object_owner(git_object *object)
 
 

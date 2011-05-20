@@ -40,8 +40,7 @@ sub test_blob {
 
 	is($blob->type, Git2::GIT_OBJ_BLOB, "Blob type is as expected");
 
-	# FIXME
-	#isa_ok($blob->owner, "Git2::Repository", "Blob's owner is a repo");
+	isa_ok($blob->owner, "Git2::Repository", "Blob's owner is a repo");
 
 	is($blob->rawcontent, "Fake repo used for unit tests.\n\n", "Blob raw content matches");
 	is($blob->rawsize, 32, "Blob raw size matches");
