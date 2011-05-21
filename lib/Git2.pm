@@ -9,6 +9,7 @@ our $VERSION = '1.0';
 require XSLoader;
 XSLoader::load('Git2', $VERSION);
 
+
 package Git2::Repository::NoFree;
 
 use base 'Git2::Repository';
@@ -16,6 +17,7 @@ use base 'Git2::Repository';
 sub DESTROY {
 	# Empty, we can't free this as a parent keeps a ref
 }
+
 
 package Git2::Oid::NoFree;
 
@@ -27,6 +29,11 @@ sub DESTROY {
 
 
 package Git2::Blob;
+
+our @ISA = ('Git2::Object');
+
+
+package Git2::Commit;
 
 our @ISA = ('Git2::Object');
 

@@ -39,6 +39,10 @@ lookup (git_repository *repo, git_oid *id, int type)
 				GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Blob");
 			break;
 
+			case GIT_OBJ_COMMIT:
+				GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Commit");
+			break;
+
 			default:
 				GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Object");
 			break;
