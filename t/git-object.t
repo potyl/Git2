@@ -21,7 +21,8 @@ BEGIN {
 sub main {
 	my $repo = Git2::Repository->open(catdir($RealBin, '..', 'sample-repo'));
 	test_blob($repo);
-	test_commit($repo);
+	test_commit_1($repo);
+	test_commit_2($repo);
 	return 0;
 }
 
@@ -48,7 +49,7 @@ sub test_blob {
 }
 
 
-sub test_commit {
+sub test_commit_1 {
 	my ($repo) = @_;
 
 	my $sha1hex = '9e50c4af90e4a175bffba6683fd1ec2f9085d541';
@@ -72,6 +73,36 @@ sub test_commit {
 
 	$id = $commit->parent_oid(0);
 	is($id, undef, "No parent");
+}
+
+sub test_commit_2 {
+	my ($repo) = @_;
+
+	my $sha1hex = '0dac239f796b57e58faaeb80125ff1607eefd3bc';
+	my $oid = Git2::Oid->mkstr($sha1hex);
+	my $commit = $repo->lookup($oid, Git2::GIT_OBJ_COMMIT);
+	isa_ok($commit, 'Git2::Object', "A commit is an object");
+	isa_ok($commit, 'Git2::Commit', "A commit is a blob");
+
+	my $id = $commit->id;
+	isa_ok($id, "Git2::Oid");
+	is($id->fmt, $sha1hex, "Oid sha1hex matches");
+
+	is($commit->type, Git2::GIT_OBJ_COMMIT, "Type matches");
+
+	isa_ok($commit->owner, "Git2::Repository", "Owner is a repo");
+
+	is($commit->message_short, "Updates", "Commit's message short matches");
+	is($commit->parentcount, 1, "Parentcount matches");
+	is($commit->time, 1306011477, "Time matches");
+	is($commit->time_offset, 120, "Timezone matches");
+
+	$id = $commit->parent_oid(1);
+	is($id, undef, "No parent for (1)");
+
+	$id = $commit->parent_oid(0);
+	isa_ok($id, 'Git2::Oid', "Got a parent for (0)");
+	is($id->fmt, '9e50c4af90e4a175bffba6683fd1ec2f9085d541', "Parent's oid sha1hex matches");
 }
 
 
