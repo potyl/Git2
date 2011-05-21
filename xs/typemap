@@ -68,12 +68,17 @@ T_PTROBJ_MG_GIT_OID
         }
 
 T_PTROBJ_MG_GIT_OID_CONST
-        {
-            SV *_self = (SV *)newHV();
-            $arg = newRV_noinc(_self);
-            sv_bless($arg, gv_stashpv("Git2::Oid::NoFree", 0));
-            xs_object_magic_attach_struct(aTHX_ _self, $var);
-        }
+	{
+		if ($var == NULL) {
+			$arg = \&PL_sv_undef;
+		}
+		else {
+			SV *_self = (SV *)newHV();
+			$arg = newRV_noinc(_self);
+			sv_bless($arg, gv_stashpv("Git2::Oid::NoFree", 0));
+			xs_object_magic_attach_struct(aTHX_ _self, $var);
+		}
+	}
 
 T_PTROBJ_MG_GIT_BLOB
         {
