@@ -4,6 +4,45 @@
 #include <errno.h>
 
 
+/* Taken from perl-Glib */
+#if defined(_MSC_VER)
+# if _MSC_VER >= 1300
+#  define PORTABLE_STRTOLL(str, end, base) _strtoi64 (str, end, base)
+# else
+#  define PORTABLE_STRTOLL(str, end, base) _atoi64 (str)
+# endif
+#else
+# define PORTABLE_STRTOLL(str, end, base) strtoll (str, end, base)
+#endif
+
+
+git_time_t
+SvGitTime (SV *sv) {
+#ifdef USE_64_BIT_ALL
+	return SvIV(sv);
+#else
+	return PORTABLE_STRTOLL(SvPV_nolen(sv), NULL, 10);
+#endif
+}
+
+
+SV*
+newSVGitTime (git_time_t value) {
+#ifdef USE_64_BIT_ALL
+	return newSViv (value);
+#else
+	char string[25];
+	STRLEN length;
+	SV *sv;
+
+	length = sprintf(string, PORTABLE_LL_FORMAT, value);
+	sv = newSVpv(string, length);
+
+	return sv;
+#endif
+}
+
+
 void
 git2perl_call_xs (pTHX_ XSPROTO(subaddr), CV *cv, SV **mark)
 {
