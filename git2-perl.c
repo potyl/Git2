@@ -17,7 +17,7 @@
 
 
 git_time_t
-SvGitTime (SV *sv) {
+git2perl_sv2time (SV *sv) {
 #ifdef USE_64_BIT_ALL
 	return SvIV(sv);
 #else
@@ -27,9 +27,9 @@ SvGitTime (SV *sv) {
 
 
 SV*
-newSVGitTime (git_time_t value) {
+git2perl_time2sv (git_time_t value) {
 #ifdef USE_64_BIT_ALL
-	return newSViv (value);
+	return newSViv(value);
 #else
 	char string[25];
 	STRLEN length;
