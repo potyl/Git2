@@ -52,6 +52,40 @@ lookup (git_repository *repo, git_oid *id, int type)
 		RETVAL
 
 
+SV*
+create_blob_fromfile(git_repository *repo, const char *path)
+    PREINIT:
+        int code;
+        git_oid *oid;
+
+    CODE:
+        Newxz(oid, 1, git_oid);
+        code = git_blob_create_fromfile(oid, repo, path);
+        GIT2PERL_CROAK(code);
+        GIT2PERL_BLESS_FROM_CLASSNAME(oid, "Git2::Oid");
+
+    OUTPUT:
+        RETVAL
+
+SV*
+create_blob_frombuffer(git_repository *repo, SV *sv)
+    PREINIT:
+        int code;
+        git_oid *oid;
+        const void *buffer;
+        size_t len;
+
+    CODE:
+        buffer = (const void *) SvPV(sv, len);
+        Newxz(oid, 1, git_oid);
+        code = git_blob_create_frombuffer(oid, repo, "aaa", 3);
+        GIT2PERL_CROAK(code);
+        GIT2PERL_BLESS_FROM_CLASSNAME(oid, "Git2::Oid");
+
+    OUTPUT:
+        RETVAL
+
+
 void
 DESTROY(git_repository *repo)
     CODE:

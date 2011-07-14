@@ -46,6 +46,15 @@ sub test_blob {
 
 	is($blob->rawcontent, "Fake repo used for unit tests.\n\n", "Blob raw content matches");
 	is($blob->rawsize, 32, "Blob raw size matches");
+
+
+	$oid = $repo->create_blob_fromfile("blob");
+	isa_ok($oid, "Git2::Oid");
+	print Dumper($oid->fmt);
+
+	$oid = $repo->create_blob_frombuffer("hello world");
+	isa_ok($oid, "Git2::Oid");
+	print Dumper($oid->fmt);
 }
 
 
