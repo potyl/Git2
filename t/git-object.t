@@ -6,7 +6,7 @@ use warnings;
 use Test::More 'no_plan';
 #use Test::More tests => 2;
 use File::Temp 'tempdir';
-use File::Spec::Functions 'catdir';
+use File::Spec::Functions 'catdir', 'catfile';
 use FindBin '$RealBin';
 
 use Data::Dumper;
@@ -18,8 +18,10 @@ BEGIN {
 }
 
 
+my $DIR = catdir($RealBin, '..', 'sample-repo');
+
 sub main {
-	my $repo = Git2::Repository->open(catdir($RealBin, '..', 'sample-repo'));
+	my $repo = Git2::Repository->open($DIR);
 	test_blob($repo);
 	test_commit_1($repo);
 	test_commit_2($repo);
@@ -47,14 +49,27 @@ sub test_blob {
 	is($blob->rawcontent, "Fake repo used for unit tests.\n\n", "Blob raw content matches");
 	is($blob->rawsize, 32, "Blob raw size matches");
 
+	# This test doesn't work with a bare repo
+	if ($ENV{ALL_TESTS}) {
+		# Clone the bare depo
+		my $dir_copy = tempdir('git2-tests-XXXXXXXXX', CLEANUP => 1);
+		system('git', 'clone', '--quiet', $DIR, $dir_copy);
 
-	$oid = $repo->create_blob_fromfile("blob");
-	isa_ok($oid, "Git2::Oid");
-	print Dumper($oid->fmt);
+		# Create a blob file
+		open my $handle, '>'. catfile($dir_copy, 'blob') or die "Can't write blob: $!";
+		print $handle "hello world\n";
+		close $handle;
+
+		# Add the blob to the repo
+		my $repo = Git2::Repository->open(catdir($dir_copy, '.git'));
+		$oid = $repo->create_blob_fromfile("blob");
+		isa_ok($oid, "Git2::Oid");
+		is($oid->fmt, "3b18e512dba79e4c8300dd08aeb37f8e728b8dad", "Blob from file has the right OID");
+	}
 
 	$oid = $repo->create_blob_frombuffer("hello world");
 	isa_ok($oid, "Git2::Oid");
-	print Dumper($oid->fmt);
+	is($oid->fmt, "7c4a013e52c76442ab80ee5572399a30373600a2", "Blob from buffer has the right OID");
 }
 
 
