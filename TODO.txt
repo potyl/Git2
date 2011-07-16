@@ -1,0 +1,218 @@
+blob.h - done
+    git_blob_close - C wrapper for git_object_close
+    git_blob_create_frombuffer - ok
+    git_blob_create_fromfile - ok
+    git_blob_lookup - C wrapper for git_object_lookup
+    git_blob_rawcontent - ok
+    git_blob_rawsize - ok
+
+commit.h
+    git_commit_author
+    git_commit_close
+    git_commit_committer
+    git_commit_create
+    git_commit_create_o
+    git_commit_create_ov
+    git_commit_create_v
+    git_commit_id
+    git_commit_lookup
+    git_commit_message
+    git_commit_message_short - ok
+    git_commit_parent
+    git_commit_parent_oid - ok
+    git_commit_parentcount - ok
+    git_commit_time - ok
+    git_commit_time_offset - ok
+    git_commit_tree
+    git_commit_tree_oid - ok
+
+
+common.h
+    nothing to export
+
+config.h
+    git_config_add_file
+    git_config_file
+    git_config_file__ondisk
+    git_config_foreach
+    git_config_free
+    git_config_get_bool
+    git_config_get_int
+    git_config_get_long
+    git_config_get_string
+    git_config_h__
+    git_config_new
+    git_config_open_file
+    git_config_open_global
+    git_config_set_bool
+    git_config_set_int
+    git_config_set_long
+    git_config_set_string
+
+errors.h
+    git_lasterror
+    git_strerror - ok
+
+index.h
+    git_index_add
+    git_index_clear
+    git_index_entry
+    git_index_entrycount
+    git_index_file
+    git_index_find
+    git_index_free
+    git_index_get
+    git_index_h__
+    git_index_insert
+    git_index_open_bare
+    git_index_open_inrepo
+    git_index_read
+    git_index_remove
+    git_index_time
+    git_index_write
+
+object.h
+    git_object__size - done
+    git_object_close - done
+    git_object_directory
+    git_object_id - done
+    git_object_lookup - done
+    git_object_owner - done
+    git_object_string2type - done
+    git_object_type - done
+    git_object_type2string - done
+    git_object_typeisloose - done
+
+odb.h
+    git_odb_add_alternate
+    git_odb_add_backend
+    git_odb_close - ok
+    git_odb_exists - ok
+    git_odb_h__
+    git_odb_hash - ok
+    git_odb_new - ok
+    git_odb_object - ok
+    git_odb_object_close - ok
+    git_odb_object_data - ok
+    git_odb_object_id - ok
+    git_odb_object_size - ok
+    git_odb_object_type - ok
+    git_odb_open - ok
+    git_odb_open_rstream
+    git_odb_open_wstream
+    git_odb_read - ok
+    git_odb_read_header - ok
+    git_odb_stream
+    git_odb_write - ok
+
+odb_backend.h
+    git_odb_backend
+    git_odb_backend_loose
+    git_odb_backend_pack
+
+oid.h
+    git_oid_allocfmt - ok
+    git_oid_cmp - ok
+    git_oid_cpy - ok
+    git_oid_fmt - ok
+    git_oid_mkraw - ok
+    git_oid_mkstr - ok
+    git_oid_pathfmt - ok
+    git_oid_shorten - ok
+    git_oid_shorten_add - ok
+    git_oid_shorten_free - ok
+    git_oid_shorten_new - ok
+    git_oid_to_string - ok
+
+refs.h
+    git_reference_create_oid
+    git_reference_create_oid_f
+    git_reference_create_symbolic
+    git_reference_create_symbolic_f
+    git_reference_delete
+    git_reference_listall
+    git_reference_listcb
+    git_reference_lookup
+    git_reference_name
+    git_reference_oid
+    git_reference_owner
+    git_reference_packall
+    git_reference_rename
+    git_reference_rename_f
+    git_reference_resolve
+    git_reference_set_oid
+    git_reference_set_target
+    git_reference_target
+    git_reference_type
+
+
+repository.h
+    git_repository_database - ok
+    git_repository_free - ok
+    git_repository_index
+    git_repository_init - ok
+    git_repository_is_empty
+    git_repository_open - ok
+    git_repository_open2
+    git_repository_open3
+    git_repository_path
+    git_repository_workdir
+
+revwalk.h
+    git_revwalk_free
+    git_revwalk_hide
+    git_revwalk_new
+    git_revwalk_next
+    git_revwalk_push
+    git_revwalk_repository
+    git_revwalk_reset
+    git_revwalk_sorting
+
+signature.h
+    git_signature_dup - ok
+    git_signature_free  - ok- ok
+    git_signature_new - ok
+    git_signature_now - ok
+
+tag.h
+    git_tag_close
+    git_tag_create
+    git_tag_create_f
+    git_tag_create_fo
+    git_tag_create_frombuffer
+    git_tag_create_o
+    git_tag_delete
+    git_tag_h__
+    git_tag_id
+    git_tag_list
+    git_tag_lookup
+    git_tag_message
+    git_tag_name
+    git_tag_tagger
+    git_tag_target
+    git_tag_target_oid
+    git_tag_type
+
+thread-utils.h
+    nothing to export
+
+tree.h
+    git_tree_close
+    git_tree_create_fromindex
+    git_tree_entry
+    git_tree_entry_2object
+    git_tree_entry_attributes
+    git_tree_entry_byindex
+    git_tree_entry_byname
+    git_tree_entry_id
+    git_tree_entry_name
+    git_tree_entrycount
+    git_tree_id
+    git_tree_lookup
+
+types.h
+    Enums (git_otype, git_rtype)
+    Structs (git_signature, git_time)
+
+zlib.h
+    nothing to export
