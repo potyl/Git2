@@ -69,7 +69,7 @@ sub test_blob {
 
 	$oid = $repo->create_blob_frombuffer("hello world");
 	isa_ok($oid, "Git2::Oid");
-	is($oid->fmt, "7c4a013e52c76442ab80ee5572399a30373600a2", "Blob from buffer has the right OID");
+	is($oid->fmt, "95d09f2b10159347eece71399a7e2e907ea3df4f", "Blob from buffer has the right OID");
 }
 
 

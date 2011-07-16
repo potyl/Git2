@@ -78,7 +78,7 @@ create_blob_frombuffer(git_repository *repo, SV *sv)
     CODE:
         buffer = (const void *) SvPV(sv, len);
         Newxz(oid, 1, git_oid);
-        code = git_blob_create_frombuffer(oid, repo, "aaa", 3);
+        code = git_blob_create_frombuffer(oid, repo, buffer, len);
         GIT2PERL_CROAK(code);
         GIT2PERL_BLESS_FROM_CLASSNAME(oid, "Git2::Oid");
 
