@@ -190,10 +190,13 @@ sub test_constants {
 	is(Git2::GIT_EEXISTS, $code--, "GIT_EEXISTS is ok");
 	is(Git2::GIT_EOVERFLOW, $code--, "GIT_EOVERFLOW is ok");
 	is(Git2::GIT_ENOTNUM, $code--, "GIT_ENOTNUM is ok");
-	# FIXME two constants missing here
-        $code -=2;
+	is(Git2::GIT_ESTREAM, $code--, "GIT_ESTREAM is ok");
+	is(Git2::GIT_EINVALIDARGS, $code--, "GIT_EINVALIDARGSis ok");
         is(Git2::GIT_EOBJCORRUPTED, $code--, "GIT_EOBJCORRUPTED is ok");
-
+        is(Git2::GIT_EAMBIGUOUSOIDPREFIX, $code--, "GIT_EAMBIGUOUSOIDPREFIX is ok");
+        is(Git2::GIT_EPASSTHROUGH, $code--, "GIT_EPASSTHROUGH is ok");
+        is(Git2::GIT_ENOMATCH, $code--, "GIT_ENOMATCH is ok");
+        is(Git2::GIT_ESHORTBUFFER, $code--, "GIT_ESHORTBUFFER is ok");
 
 	$code = -2;
 	is(Git2::GIT_OBJ_ANY, $code++, "GIT_OBJ_ANY is ok");
