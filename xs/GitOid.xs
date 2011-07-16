@@ -5,14 +5,14 @@ MODULE = Git2::Oid  PACKAGE = Git2::Oid  PREFIX = git_oid_
 
 
 SV*
-git_oid_mkstr(SV *class, const char *hex)
+git_oid_fromstr(SV *class, const char *hex)
     PREINIT:
         git_oid *oid;
         int code;
 
     CODE:
         Newxz(oid, 1, git_oid);
-        code = git_oid_mkstr(oid, hex);
+        code = git_oid_fromstr(oid, hex);
         GIT2PERL_CROAK(code);
         GIT2PERL_BLESS_FROM_CLASS_SV(oid, class);
 
@@ -21,7 +21,7 @@ git_oid_mkstr(SV *class, const char *hex)
 
 
 SV*
-git_oid_mkraw(SV *class, SV *raw_sv);
+git_oid_fromraw(SV *class, SV *raw_sv);
     PREINIT:
         git_oid *oid;
         const unsigned char *raw;
@@ -29,7 +29,7 @@ git_oid_mkraw(SV *class, SV *raw_sv);
     CODE:
         raw = (const unsigned char *) SvPV_nolen(raw_sv);
         Newxz(oid, 1, git_oid);
-        git_oid_mkraw(oid, raw);
+        git_oid_fromraw(oid, raw);
         GIT2PERL_BLESS_FROM_CLASS_SV(oid, class);
 
 	OUTPUT:
