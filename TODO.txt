@@ -8,14 +8,14 @@ blob.h - done
 
 commit.h
     git_commit_author
-    git_commit_close
+    git_commit_close - C wrapper for git_object_close
     git_commit_committer
     git_commit_create
     git_commit_create_o
     git_commit_create_ov
     git_commit_create_v
     git_commit_id
-    git_commit_lookup
+    git_commit_lookup - C wrapper for git_object_lookup
     git_commit_message
     git_commit_message_short - ok
     git_commit_parent
