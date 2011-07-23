@@ -33,7 +33,7 @@ sub test_blob {
 	my ($repo) = @_;
 
 	my $sha1hex = '92ea28161c72a03696172f99af96fcac1b35faea';
-	my $oid = Git2::Oid->mkstr($sha1hex);
+	my $oid = Git2::Oid->fromstr($sha1hex);
 	my $blob = $repo->lookup($oid, Git2::GIT_OBJ_BLOB);
 	isa_ok($blob, 'Git2::Object', "A blob is an object");
 	isa_ok($blob, 'Git2::Blob', "A blob is a blob");
@@ -77,7 +77,7 @@ sub test_commit_1 {
 	my ($repo) = @_;
 
 	my $sha1hex = '9e50c4af90e4a175bffba6683fd1ec2f9085d541';
-	my $oid = Git2::Oid->mkstr($sha1hex);
+	my $oid = Git2::Oid->fromstr($sha1hex);
 	my $commit = $repo->lookup($oid, Git2::GIT_OBJ_COMMIT);
 	isa_ok($commit, 'Git2::Object', "A commit is an object");
 	isa_ok($commit, 'Git2::Commit', "A commit is a blob");
@@ -103,7 +103,7 @@ sub test_commit_2 {
 	my ($repo) = @_;
 
 	my $sha1hex = '0dac239f796b57e58faaeb80125ff1607eefd3bc';
-	my $oid = Git2::Oid->mkstr($sha1hex);
+	my $oid = Git2::Oid->fromstr($sha1hex);
 	my $commit = $repo->lookup($oid, Git2::GIT_OBJ_COMMIT);
 	isa_ok($commit, 'Git2::Object', "A commit is an object");
 	isa_ok($commit, 'Git2::Commit', "A commit is a blob");

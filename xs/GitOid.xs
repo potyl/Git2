@@ -70,12 +70,12 @@ git_oid_allocfmt(git_oid *oid)
 	CODE:
 		str = git_oid_allocfmt(oid);
         if (str != NULL) {
-		    RETVAL = newSVpv(str, 0);
-            free(str);
-        }
-        else {
-            RETVAL = &PL_sv_undef;
-        }
+		RETVAL = newSVpv(str, 0);
+		free(str);
+	}
+	else {
+		RETVAL = &PL_sv_undef;
+	}
 
 	OUTPUT:
 		RETVAL
@@ -90,12 +90,12 @@ git_oid_to_string(git_oid *oid, size_t n)
         Newxz(str, n, char);
 		git_oid_to_string(str, n, oid);
         if (str != NULL) {
-		    RETVAL = newSVpv(str, n - 1);
-            free(str);
-        }
-        else {
-            RETVAL = &PL_sv_undef;
-        }
+		RETVAL = newSVpv(str, n - 1);
+		free(str);
+	}
+	else {
+		RETVAL = &PL_sv_undef;
+	}
 
 	OUTPUT:
 		RETVAL
@@ -126,5 +126,5 @@ git_oid_cmp(git_oid *a, git_oid *b)
 
 void
 DESTROY(git_oid *oid)
-    CODE:
-        Safefree(oid);
+	CODE:
+		Safefree(oid);
