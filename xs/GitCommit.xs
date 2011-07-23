@@ -26,3 +26,7 @@ git_commit_parentcount (git_commit *commit)
 
 const git_oid*
 git_commit_parent_oid  (git_commit *commit, unsigned int n)
+
+
+const git_oid*
+git_commit_id (git_commit *commit)
