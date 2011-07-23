@@ -7,8 +7,16 @@ Perl bindings for libgit2 started during the Amsterdam QA hackathon.
 This is far from being finished yet.
 Keep in touch or simply send patches!
 
+Please bear in mind that libgit2 is currently a moving target, with
+severe API incompatibilities introduced every release.  It could be
+possible to insulate users of this module from these changes, but that
+decision has not yet been made.  As such, please do not consider the
+API under Git2:: stable until the maintainers declare it so.
 
-To build simply do:
+For a grid listing the state of these incompatibilities, see:
+  http://linuxtesting.org/upstream-tracker/versions/libgit2.html
+
+To build, use:
 
 	perl Makefile.PL && make && make test
 

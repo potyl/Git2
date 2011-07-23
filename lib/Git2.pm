@@ -37,4 +37,9 @@ package Git2::Commit;
 
 our @ISA = ('Git2::Object');
 
+package Git2::Oid;
+
+*mkstr = *fromstr;
+*mkraw = *fromraw;
+
 1;
