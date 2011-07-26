@@ -30,3 +30,7 @@ git_commit_parent_oid  (git_commit *commit, unsigned int n)
 
 const git_oid*
 git_commit_id (git_commit *commit)
+
+
+const char *
+git_commit_message (git_commit *commit)
