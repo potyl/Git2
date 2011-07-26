@@ -90,7 +90,7 @@ sub test_commit_1 {
 
 	isa_ok($commit->owner, "Git2::Repository", "Owner is a repo");
 
-	is($commit->message_short, "Import", "Commit's message short matches");
+	is($commit->message_short, "Import", "Commit's short message matches");
 	is($commit->parentcount, 0, "Parentcount matches");
 	is($commit->time, 1304768126, "Time matches");
 	is($commit->time_offset, 120, "Timezone matches");
