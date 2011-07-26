@@ -53,6 +53,33 @@ lookup (git_repository *repo, git_oid *id, int type)
 
 
 SV*
+lookup_prefix (git_repository *repo, git_oid *id, unsigned len, int type)
+    PREINIT:
+        git_object *object;
+        int code;
+
+    CODE:
+        code = git_object_lookup_prefix(&object, repo, id, len, type);
+        GIT2PERL_CROAK(code);
+
+        switch (type) {
+            case GIT_OBJ_BLOB:
+                GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Blob");
+            break;
+
+            case GIT_OBJ_COMMIT:
+                GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Commit");
+            break;
+
+            default:
+                GIT2PERL_BLESS_FROM_CLASSNAME(object, "Git2::Object");
+            break;
+        }
+
+    OUTPUT:
+        RETVAL
+
+SV*
 create_blob_fromfile(git_repository *repo, const char *path)
     PREINIT:
         int code;

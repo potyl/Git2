@@ -77,6 +77,7 @@ object.h
     git_object_directory
     git_object_id - done
     git_object_lookup - done
+    git_object_lookup_prefix - done
     git_object_owner - done
     git_object_string2type - done
     git_object_type - done
