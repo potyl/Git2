@@ -18,7 +18,7 @@ commit.h
     git_commit_lookup - C wrapper for git_object_lookup
     git_commit_message - ok
     git_commit_message_short - ok
-    git_commit_parent
+    git_commit_parent - ok
     git_commit_parent_oid - ok
     git_commit_parentcount - ok
     git_commit_time - ok
