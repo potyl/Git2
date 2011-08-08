@@ -128,8 +128,12 @@ sub test_commit_2 {
 	is($id, undef, "No parent for (1)");
 
 	$id = $commit->parent_oid(0);
-	isa_ok($id, 'Git2::Oid', "Got a parent for (0)");
+	isa_ok($id, 'Git2::Oid', "Got a parent id for (0)");
 	is($id->fmt, '9e50c4af90e4a175bffba6683fd1ec2f9085d541', "Parent's oid sha1hex matches");
+
+	my $parent = $commit->parent(0);
+	isa_ok($parent, 'Git2::Commit', "Got a parent for (0)");
+	is($parent->id->fmt, $id->fmt, "Parent id matches");
 }
 
 
