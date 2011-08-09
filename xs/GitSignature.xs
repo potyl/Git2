@@ -13,8 +13,8 @@ git_signature_new (SV *class, const char *name, const char *email, git_time_t ti
         sig = git_signature_new(name, email, time, offset);
         GIT2PERL_BLESS_FROM_CLASS_SV(sig, class);
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 SV*
@@ -26,8 +26,8 @@ git_signature_now (SV *class, const char *name, const char *email)
         sig = git_signature_now(name, email);
         GIT2PERL_BLESS_FROM_CLASS_SV(sig, class);
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 SV*
@@ -39,8 +39,8 @@ git_signature_dup (git_signature *sig)
         dup = git_signature_dup(sig);
         GIT2PERL_BLESS_FROM_SV(dup, ST(0));
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 char*

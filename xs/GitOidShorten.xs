@@ -13,8 +13,8 @@ git_oid_shorten_new (SV *class, size_t min_length)
         os = git_oid_shorten_new(min_length);
         GIT2PERL_BLESS_FROM_CLASS_SV(os, class);
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 int
