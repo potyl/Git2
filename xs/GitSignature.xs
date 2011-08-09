@@ -43,6 +43,33 @@ git_signature_dup (git_signature *sig)
 		RETVAL
 
 
+char*
+name (git_signature *sig, char *newval = NULL)
+    ALIAS:
+        email = 1
+
+    CODE:
+        switch (ix) {
+            case 0:
+                RETVAL = sig->name;
+                if (items > 1) sig->name = newval;
+            break;
+
+            case 1:
+                RETVAL = sig->email;
+                if (items > 1) sig->email = newval;
+            break;
+
+            default:
+                RETVAL = NULL;
+                croak("Not expected");
+            break;
+        }
+
+    OUTPUT:
+        RETVAL
+
+
 void
 DESTROY(git_signature *sig)
     CODE:

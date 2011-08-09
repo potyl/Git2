@@ -261,6 +261,14 @@ sub test_signature {
     isa_ok($signature, 'Git2::Signature');
     isa_ok($signature->dup, 'Git2::Signature', "Signature->now->dup is a signature");
 
+    is($signature->name, "Emo", "Signature name matches");
+    $signature->name("Test");
+    is($signature->name, "Test", "Signature name changed");
+
+    is($signature->email, 'emo@example.org', "Signature email matches");
+    $signature->email('test@example.org');
+    is($signature->email, 'test@example.org', "Signature email changed");
+
     my $signature2 = Git2::Signature->new("Potyl", 'potyl@example.org', time, 0);
     isa_ok($signature2, 'Git2::Signature');
     isa_ok($signature->dup, 'Git2::Signature', "Signature->new->dup is a signature");
