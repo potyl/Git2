@@ -39,7 +39,7 @@ T_PTROBJ_MG_GIT_REPOSITORY_CONST
     $var = ($type)xs_object_magic_get_struct_rv_pretty(aTHX_ $arg, \"$var\");
 
 T_GIT_TIME_T
-	$var = git2perl_sv2time($arg);
+    $var = git2perl_sv2time($arg);
 
 
 OUTPUT
@@ -68,17 +68,17 @@ T_PTROBJ_MG_GIT_OID
         }
 
 T_PTROBJ_MG_GIT_OID_CONST
-	{
-		if ($var == NULL) {
-			$arg = \&PL_sv_undef;
-		}
-		else {
-			SV *_self = (SV *)newHV();
-			$arg = newRV_noinc(_self);
-			sv_bless($arg, gv_stashpv("Git2::Oid::NoFree", 0));
-			xs_object_magic_attach_struct(aTHX_ _self, (void *) $var);
-		}
-	}
+    {
+        if ($var == NULL) {
+            $arg = \&PL_sv_undef;
+        }
+        else {
+            SV *_self = (SV *)newHV();
+            $arg = newRV_noinc(_self);
+            sv_bless($arg, gv_stashpv("Git2::Oid::NoFree", 0));
+            xs_object_magic_attach_struct(aTHX_ _self, (void *) $var);
+        }
+    }
 
 T_PTROBJ_MG_GIT_BLOB
         {
@@ -113,4 +113,4 @@ T_PTROBJ_MG_GIT_REPOSITORY_CONST
         }
 
 T_GIT_TIME_T
-	$arg = git2perl_time2sv($var);
+    $arg = git2perl_time2sv($var);

@@ -10,34 +10,34 @@ git_odb_object_close(git_odb_object *obj)
 
 SV*
 git_odb_object_id(git_odb_object *obj)
-	PREINIT:
-		const git_oid *oid;
-		git_oid *dup;
+    PREINIT:
+        const git_oid *oid;
+        git_oid *dup;
 
-	CODE:
-		oid = git_odb_object_id(obj);
-		Newxz(dup, 1, git_oid);
-		git_oid_cpy(dup, oid);
-		GIT2PERL_BLESS_FROM_CLASSNAME(dup, "Git2::Oid");
+    CODE:
+        oid = git_odb_object_id(obj);
+        Newxz(dup, 1, git_oid);
+        git_oid_cpy(dup, oid);
+        GIT2PERL_BLESS_FROM_CLASSNAME(dup, "Git2::Oid");
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 SV*
 git_odb_object_data(git_odb_object *object)
-	PREINIT:
-		char *data_str;
-		void *data;
-		size_t size;
+    PREINIT:
+        char *data_str;
+        void *data;
+        size_t size;
 
-	CODE:
-		data = git_odb_object_data(object);
-		size = git_odb_object_size(object);
-		RETVAL = newSVpv(data, size);
+    CODE:
+        data = git_odb_object_data(object);
+        size = git_odb_object_size(object);
+        RETVAL = newSVpv(data, size);
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 size_t
@@ -50,5 +50,5 @@ git_odb_object_type(git_odb_object *object)
 
 void
 DESTROY(git_odb_object *object)
-	CODE:
-		git_odb_object_close(object);
+    CODE:
+        git_odb_object_close(object);

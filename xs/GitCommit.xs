@@ -38,20 +38,20 @@ git_commit_message (git_commit *commit)
 
 SV*
 git_commit_parent (git_commit *commit, unsigned int n)
-	PREINIT:
-		git_commit *parent = NULL;
-		int code;
+    PREINIT:
+        git_commit *parent = NULL;
+        int code;
 
-	CODE:
-		code = git_commit_parent(&parent, commit, n);
-		GIT2PERL_CROAK(code);
-		GIT2PERL_BLESS_FROM_CLASSNAME(parent, "Git2::Commit");
+    CODE:
+        code = git_commit_parent(&parent, commit, n);
+        GIT2PERL_CROAK(code);
+        GIT2PERL_BLESS_FROM_CLASSNAME(parent, "Git2::Commit");
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 
 void
 DESTROY (git_commit *commit)
-	CODE:
-		git_commit_close(commit);
+    CODE:
+        git_commit_close(commit);
